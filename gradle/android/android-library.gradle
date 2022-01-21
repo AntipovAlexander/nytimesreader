@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.file('gradle/android/android.gradle')
+
+android {
+    defaultConfig {
+        def proguardDir = project.file('proguard')
+        if (proguardDir.isDirectory()) {
+            consumerProguardFiles proguardDir.listFiles()
+        }
+    }
+}

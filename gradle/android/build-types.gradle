@@ -1,0 +1,29 @@
+project.ext.set("versionMajor", 1)
+project.ext.set("versionMinor", 0)
+project.ext.set("versionPatch", 0)
+project.ext.set("versionBuild", 0)
+
+def versionStr = "$versionMajor.$versionMinor.$versionPatch.$versionBuild"
+
+android {
+    defaultConfig {
+    }
+    buildTypes {
+        all {
+            buildConfigField("String", "APP_VERSION", "\"$versionStr\"")
+        }
+        release {
+            minifyEnabled true
+            debuggable false
+            buildConfigField("String", "TODO", '"TODO"')
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField("String", "TODO", '"TODO"')
+
+            versionNameSuffix System.getenv("BUILD_NUMBER") != null ? "-development (BuildNo: " + System.getenv("BUILD_NUMBER") + ")" : "-development"
+        }
+    }
+}
