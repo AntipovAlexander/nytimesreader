@@ -1,4 +1,4 @@
-package ny.times.reader.ui.theme
+package ny.times.reader.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf

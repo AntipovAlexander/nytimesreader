@@ -10,6 +10,13 @@ android {
         exclude "META-INF/LGPL2.1"
     }
 
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+
     compileSdkVersion build_versions.compile_sdk
 
     defaultConfig {

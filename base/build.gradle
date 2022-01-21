@@ -1,0 +1,40 @@
+apply from: rootProject.file('gradle/android/android-library.gradle')
+
+dependencies {
+    implementation deps.kotlin.stdlib
+    implementation deps.androidx.material
+
+    // Kotlin
+    api(
+            deps.kotlin.stdlib,
+            deps.kotlin.coroutines,
+            deps.kotlin.coroutines_core,
+            deps.kotlin.serialization
+    )
+
+    // AndroidX
+    api(
+            deps.androidx.core,
+            deps.androidx.appcompat,
+            deps.androidx.material,
+            deps.androidx.datastore_prefs,
+            deps.androidx.datastore_core,
+            deps.androidx.fragment,
+            deps.androidx.activity,
+            deps.androidx.activity_compose,
+            deps.androidx.lifecycle_extensions,
+            deps.androidx.lifecycle_livedata,
+            deps.androidx.lifecycle_livedata_core,
+            deps.androidx.lifecycle_livedata_vm,
+            deps.androidx.lifecycle_runtime
+    )
+
+    // Compose
+    api(
+            deps.compose.ui,
+            deps.compose.compiler,
+            deps.compose.material,
+            deps.compose.preview,
+            deps.compose.system_ui_contorller
+    )
+}

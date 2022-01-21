@@ -1,4 +1,4 @@
-package ny.times.reader.ui.theme
+package ny.times.reader.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -6,7 +6,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import ny.times.reader.R
 
 private val sfRegular = FontFamily(Font(R.font.sf_regular))
 private val sfRegularItalic = FontFamily(Font(R.font.sf_regular_italic))

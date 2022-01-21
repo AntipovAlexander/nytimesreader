@@ -8,16 +8,13 @@ plugins {
 
 apply from: rootProject.file('gradle/android/android.gradle')
 
-android {
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion versions.compose
-    }
-}
-
 dependencies {
+
+    implementation(
+            project(':base'),
+            project(':theme')
+    )
+
     // Hilt
     implementation(deps.dagger_hilt.android)
     kapt deps.dagger_hilt.android_compiler
@@ -33,40 +30,6 @@ dependencies {
     implementation(
             deps.retrofit.runtime,
             deps.retrofit.kotlin_serialization,
-    )
-
-    // Kotlin
-    implementation(
-            deps.kotlin.stdlib,
-            deps.kotlin.coroutines,
-            deps.kotlin.coroutines_core,
-            deps.kotlin.serialization
-    )
-
-    // AndroidX
-    implementation(
-            deps.androidx.core,
-            deps.androidx.appcompat,
-            deps.androidx.material,
-            deps.androidx.datastore_prefs,
-            deps.androidx.datastore_core,
-            deps.androidx.fragment,
-            deps.androidx.activity,
-            deps.androidx.activity_compose,
-            deps.androidx.lifecycle_extensions,
-            deps.androidx.lifecycle_livedata,
-            deps.androidx.lifecycle_livedata_core,
-            deps.androidx.lifecycle_livedata_vm,
-            deps.androidx.lifecycle_runtime
-    )
-
-    // Compose
-    implementation(
-            deps.compose.ui,
-            deps.compose.compiler,
-            deps.compose.material,
-            deps.compose.preview,
-            deps.compose.system_ui_contorller
     )
 
     debugImplementation(deps.chucker.library)
