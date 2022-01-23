@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
 import ny.times.reader.theme.TimesReaderTheme
 
 class AppActivity : ComponentActivity() {
@@ -20,9 +19,7 @@ class AppActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxHeight()
                         .fillMaxWidth()
-                ) {
-                    AppActivityUi(navController = rememberNavController())
-                }
+                ) { AppActivityUi() }
             }
         }
     }

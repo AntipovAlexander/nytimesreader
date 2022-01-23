@@ -10,6 +10,7 @@ buildscript {
         classpath deps.plugin.kotlin
         classpath deps.plugin.kotlin_serialization
         classpath deps.plugin.dagger_hilt
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
     }
 }
 
