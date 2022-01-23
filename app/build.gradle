@@ -12,7 +12,8 @@ dependencies {
 
     implementation(
             project(':base'),
-            project(':theme')
+            project(':theme'),
+            project(':home')
     )
 
     // Hilt

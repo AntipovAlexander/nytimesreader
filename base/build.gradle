@@ -26,7 +26,8 @@ dependencies {
             deps.androidx.lifecycle_livedata,
             deps.androidx.lifecycle_livedata_core,
             deps.androidx.lifecycle_livedata_vm,
-            deps.androidx.lifecycle_runtime
+            deps.androidx.lifecycle_runtime,
+            deps.androidx.navigation_compose
     )
 
     // Compose

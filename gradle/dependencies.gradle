@@ -53,6 +53,7 @@ versions.lifecycle_runtime_ktx = "2.4.0"
 versions.material = "1.5.0"
 versions.core_ktx = "1.7.0"
 versions.data_store = "1.0.0"
+versions.navigation_compose = "2.4.0-rc01"
 
 deps.androidx = [
         appcompat              : "androidx.appcompat:appcompat:$versions.appcompat",
@@ -68,7 +69,8 @@ deps.androidx = [
         core                   : "androidx.core:core-ktx:$versions.core_ktx",
         datastore_prefs        : "androidx.datastore:datastore-preferences:$versions.data_store",
         datastore_core         : "androidx.datastore:datastore-core:$versions.data_store",
-        activity_compose       : "androidx.activity:activity-compose:$versions.activity"
+        activity_compose       : "androidx.activity:activity-compose:$versions.activity",
+        navigation_compose     : "androidx.navigation:navigation-compose:$versions.navigation_compose"
 ]
 
 // Compose
