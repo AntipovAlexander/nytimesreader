@@ -1,4 +1,4 @@
-package ny.times.reader.theme
+package ny.times.reader.base.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider

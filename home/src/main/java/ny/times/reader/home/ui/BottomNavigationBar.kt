@@ -13,8 +13,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.home.navigation.BottomTabs
-import ny.times.reader.theme.TimesReaderTheme
 
 @Composable
 fun BottomNavigationBar(homeNavController: NavHostController, modifier: Modifier = Modifier) {
