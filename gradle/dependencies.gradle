@@ -97,10 +97,12 @@ deps.glide = [
 ]
 
 // Dagger
+versions.dagger_hilt_compose = "1.0.0-rc01"
 deps.dagger_hilt = [
         android          : "com.google.dagger:hilt-android:$versions.dagger_hilt",
         android_compiler : "com.google.dagger:hilt-android-compiler:$versions.dagger_hilt",
-        androidx_compiler: "androidx.hilt:hilt-compiler:$versions.dagger_hilt_androidx"
+        androidx_compiler: "androidx.hilt:hilt-compiler:$versions.dagger_hilt_androidx",
+        compose          : "androidx.hilt:hilt-navigation-compose:$versions.dagger_hilt_compose"
 ]
 
 // Chucker

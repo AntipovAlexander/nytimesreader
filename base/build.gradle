@@ -40,4 +40,7 @@ dependencies {
             deps.compose.animation,
             deps.compose.navigation_animations
     )
+
+    // Debug
+    api(deps.debugging.timber)
 }

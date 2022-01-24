@@ -1,27 +1,33 @@
-package ny.times.reader.feed
+package ny.times.reader.feed.presentation
 
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import ny.times.reader.base.domain.entity.doOnError
+import ny.times.reader.base.domain.entity.doOnSuccess
+import ny.times.reader.base.domain.entity.map
 import ny.times.reader.base.presentation.ui.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
+import ny.times.reader.feed.domain.GetTopicsUseCase
+import ny.times.reader.feed.presentation.data.toUiModel
+import timber.log.Timber
+import javax.inject.Inject
 
-class FeedViewModel : BaseViewModel<FeedViewState>(FeedViewState.Initial) {
-
-    val chipsState = mutableStateOf(state.chips)
-
-    // todo: will be moved somewhere
-    private val initialChips = listOf(
-        ChipContent(1, "Culture", true),
-        ChipContent(2, "Science", false),
-        ChipContent(3, "Technologies", false),
-        ChipContent(4, "Music", false),
-        ChipContent(5, "Arts", false),
-        ChipContent(6, "Investment", false),
-        ChipContent(7, "Business", false)
-    )
+@HiltViewModel
+class FeedViewModel @Inject constructor(
+    private val getTopicsUseCase: GetTopicsUseCase
+) : BaseViewModel<FeedViewState>(FeedViewState.Initial) {
 
     init {
-        sendAction(FeedViewActions.UpdateChips(initialChips))
+        loadTopics()
+    }
+
+    private fun loadTopics() = viewModelScope.launch {
+        getTopicsUseCase(Unit)
+            .map { it.mapIndexed { index, topic -> topic.toUiModel(index == 0) } }
+            .doOnSuccess { sendAction(FeedViewActions.UpdateChips(it)) }
+            .doOnError(Timber::d)
     }
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {

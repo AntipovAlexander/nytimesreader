@@ -1,4 +1,4 @@
-package ny.times.reader.feed
+package ny.times.reader.feed.presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -7,12 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import ny.times.reader.base.presentation.ui.ChipGroup
 import ny.times.reader.base.presentation.ui.Toolbar
+import ny.times.reader.feed.R
 
 @Composable
-fun Feed(feedVm: FeedViewModel = viewModel()) {
+fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
     Column {
         Toolbar(text = stringResource(R.string.feed))
         ChipGroup(

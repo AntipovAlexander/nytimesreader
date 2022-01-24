@@ -47,4 +47,4 @@ fun Chip(
     }
 }
 
-data class ChipContent(val id: Int, val text: String, val isSelected: Boolean)
+data class ChipContent(val id: Long, val text: String, val isSelected: Boolean)

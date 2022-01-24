@@ -13,7 +13,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import ny.times.reader.bookmarks.Bookmarks
-import ny.times.reader.feed.Feed
+import ny.times.reader.feed.presentation.Feed
 import ny.times.reader.search.Search
 
 @OptIn(ExperimentalAnimationApi::class)

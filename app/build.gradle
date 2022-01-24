@@ -32,6 +32,12 @@ dependencies {
             deps.retrofit.kotlin_serialization,
     )
 
+    // Hilt
+    implementation(
+            deps.dagger_hilt.android,
+            deps.dagger_hilt.android
+    )
+
     debugImplementation(deps.chucker.library)
     releaseImplementation(deps.chucker.library_no_op)
 
