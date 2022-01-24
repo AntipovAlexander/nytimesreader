@@ -12,9 +12,8 @@ private const val HOME = "home"
 @Composable
 fun AppActivityUi() {
     val navController = rememberNavController()
-    val bottomBarController = rememberNavController()
     NavHost(navController = navController, startDestination = HOME) {
-        composable(HOME) { Home(bottomBarController) }
+        composable(HOME) { Home() }
     }
 }
 
