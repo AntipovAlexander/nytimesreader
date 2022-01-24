@@ -75,13 +75,15 @@ deps.androidx = [
 
 // Compose
 versions.compose = '1.2.0-alpha01'
-versions.accompanist = '0.20.3'
+versions.accompanist = '0.24.0-alpha'
 deps.compose = [
-        compiler            : "androidx.compose.compiler:compiler:$versions.compose",
-        ui                  : "androidx.compose.ui:ui:$versions.compose",
-        material            : "androidx.compose.material:material:$versions.compose",
-        preview             : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
-        system_ui_contorller: "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist"
+        compiler             : "androidx.compose.compiler:compiler:$versions.compose",
+        ui                   : "androidx.compose.ui:ui:$versions.compose",
+        material             : "androidx.compose.material:material:$versions.compose",
+        preview              : "androidx.compose.ui:ui-tooling-preview:$versions.compose",
+        system_ui_contorller : "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist",
+        navigation_animations: "com.google.accompanist:accompanist-navigation-animation:$versions.accompanist",
+        animation            : "androidx.compose.animation:animation:$versions.compose"
 ]
 
 // Glide

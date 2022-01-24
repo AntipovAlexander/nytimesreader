@@ -36,6 +36,8 @@ dependencies {
             deps.compose.compiler,
             deps.compose.material,
             deps.compose.preview,
-            deps.compose.system_ui_contorller
+            deps.compose.system_ui_contorller,
+            deps.compose.animation,
+            deps.compose.navigation_animations
     )
 }
