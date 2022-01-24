@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import ny.times.reader.base.ui.Toolbar
+import ny.times.reader.base.presentation.ui.Toolbar
 
 @Composable
 fun Bookmarks() {

@@ -1,4 +1,4 @@
-package ny.times.reader.base.ui
+package ny.times.reader.base.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
