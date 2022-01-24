@@ -5,7 +5,8 @@ dependencies {
             project(":base"),
             project(":theme"),
             project(":feed"),
-            project(":search")
+            project(":search"),
+            project(":bookmarks")
     )
 
 }

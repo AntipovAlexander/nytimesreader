@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun Feed() {
     Column {
-        TopAppBar(title = { Text(stringResource(R.string.tab_title)) })
+        TopAppBar(title = { Text(stringResource(R.string.feed)) })
     }
 }
 

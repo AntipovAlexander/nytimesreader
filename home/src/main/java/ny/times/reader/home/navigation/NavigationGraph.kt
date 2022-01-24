@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ny.times.reader.bookmarks.Bookmarks
 import ny.times.reader.feed.Feed
 import ny.times.reader.search.Search
 
@@ -17,6 +18,6 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modif
     ) {
         composable(BottomTabs.Feed.route) { Feed() }
         composable(BottomTabs.Search.route) { Search() }
-        composable(BottomTabs.Bookmarks.route) { TODO() }
+        composable(BottomTabs.Bookmarks.route) { Bookmarks() }
     }
 }

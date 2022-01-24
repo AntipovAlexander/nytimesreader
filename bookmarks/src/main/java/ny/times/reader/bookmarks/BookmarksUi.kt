@@ -1,4 +1,4 @@
-package ny.times.reader.search
+package ny.times.reader.bookmarks
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
@@ -8,15 +8,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun Search() {
+fun Bookmarks() {
     Column {
-        TopAppBar(title = { Text(stringResource(R.string.search)) })
-        Text(text = stringResource(R.string.search))
+        TopAppBar(title = { Text(stringResource(R.string.bookmarks)) })
     }
 }
 
 @Preview
 @Composable
 fun SearchPreview() {
-    Search()
+    Bookmarks()
 }
