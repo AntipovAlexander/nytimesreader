@@ -36,9 +36,17 @@ dependencies {
             deps.compose.compiler,
             deps.compose.material,
             deps.compose.preview,
+            deps.compose.tooling,
             deps.compose.system_ui_contorller,
             deps.compose.animation,
-            deps.compose.navigation_animations
+            deps.compose.navigation_animations,
+            deps.compose.constraint_layout,
+            deps.compose.icons
+    )
+
+    // Coil
+    api(
+            deps.coil.compose_loader
     )
 
     // Debug

@@ -76,6 +76,7 @@ deps.androidx = [
 // Compose
 versions.compose = '1.2.0-alpha01'
 versions.accompanist = '0.24.0-alpha'
+versions.constraint_layout = '1.0.0'
 deps.compose = [
         compiler             : "androidx.compose.compiler:compiler:$versions.compose",
         ui                   : "androidx.compose.ui:ui:$versions.compose",
@@ -84,16 +85,16 @@ deps.compose = [
         tooling              : "androidx.compose.ui:ui-tooling:$versions.compose",
         system_ui_contorller : "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist",
         navigation_animations: "com.google.accompanist:accompanist-navigation-animation:$versions.accompanist",
-        animation            : "androidx.compose.animation:animation:$versions.compose"
+        animation            : "androidx.compose.animation:animation:$versions.compose",
+        constraint_layout    : "androidx.constraintlayout:constraintlayout-compose:$versions.constraint_layout",
+        icons                : "androidx.compose.material:material-icons-extended:$versions.compose"
 ]
 
-// Glide
-versions.glide = "4.12.0"
-versions.glide_transformations = "4.3.0"
+// Coil
+versions.coil = "1.4.0"
 
-deps.glide = [
-        runtime        : "com.github.bumptech.glide:glide:$versions.glide",
-        transformations: "jp.wasabeef:glide-transformations:$versions.glide_transformations",
+deps.coil = [
+        compose_loader: "io.coil-kt:coil-compose:$versions.coil"
 ]
 
 // Dagger
