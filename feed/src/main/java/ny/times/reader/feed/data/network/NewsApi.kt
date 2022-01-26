@@ -7,5 +7,8 @@ import retrofit2.http.Query
 interface NewsApi {
 
     @GET("articlesearch.json")
-    suspend fun searchNewsList(@Query("fq") query: String): NewsList
+    suspend fun searchNewsList(
+        @Query("fq") query: String,
+        @Query("sort") sort: String
+    ): NewsList
 }
