@@ -9,6 +9,7 @@ import ny.times.reader.base.domain.entity.map
 import ny.times.reader.base.presentation.ui.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
+import ny.times.reader.feed.domain.GetNewsListUseCase
 import ny.times.reader.feed.domain.GetTopicsUseCase
 import ny.times.reader.feed.presentation.data.toUiModel
 import timber.log.Timber
@@ -16,22 +17,36 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val getTopicsUseCase: GetTopicsUseCase
+    private val getTopicsUseCase: GetTopicsUseCase,
+    private val getNewsListUseCase: GetNewsListUseCase,
 ) : BaseViewModel<FeedViewState>(FeedViewState.Initial) {
+
+    companion object {
+        const val DEFAULT_SELECTED_CATEGORY = 0
+    }
 
     init {
         loadTopics()
+        loadNews()
     }
 
     private fun loadTopics() = viewModelScope.launch {
         getTopicsUseCase(Unit)
-            .map { it.mapIndexed { index, topic -> topic.toUiModel(index == 0) } }
+            .map { it.mapIndexed { i, topic -> topic.toUiModel(i == DEFAULT_SELECTED_CATEGORY) } }
             .doOnSuccess { sendAction(FeedViewActions.UpdateChips(it)) }
+            .doOnError(Timber::d)
+    }
+
+    private fun loadNews() = viewModelScope.launch {
+        getNewsListUseCase(Unit)
+            .map { it.map { topic -> topic.toUiModel() } }
+            .doOnSuccess { sendAction(FeedViewActions.UpdateNews(it)) }
             .doOnError(Timber::d)
     }
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
         is FeedViewActions.UpdateChips -> state.copy(chips = viewAction.chips)
+        is FeedViewActions.UpdateNews -> state.copy(news = viewAction.news)
         else -> state
     }
 

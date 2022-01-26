@@ -3,6 +3,7 @@ package ny.times.reader.home.ui
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,9 +16,12 @@ import ny.times.reader.home.navigation.NavigationGraph
 fun Home() {
     val homeNavController = rememberAnimatedNavController()
     Scaffold(bottomBar = { BottomNavigationBar(homeNavController) }) {
-        NavigationGraph(homeNavController, modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight())
+        NavigationGraph(
+            homeNavController, modifier = Modifier
+                .padding(bottom = it.calculateBottomPadding())
+                .fillMaxWidth()
+                .fillMaxHeight()
+        )
     }
 }
 
