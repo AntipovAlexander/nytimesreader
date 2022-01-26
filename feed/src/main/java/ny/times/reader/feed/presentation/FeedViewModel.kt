@@ -9,16 +9,20 @@ import ny.times.reader.base.data.entity.map
 import ny.times.reader.base.presentation.ui.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
+import ny.times.reader.base.utils.time_formatter.SocialTimeFormatter
 import ny.times.reader.feed.domain.use_case.GetNewsListUseCase
 import ny.times.reader.feed.domain.use_case.GetTopicsUseCase
 import ny.times.reader.feed.presentation.data.toUiModel
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getTopicsUseCase: GetTopicsUseCase,
     private val getNewsListUseCase: GetNewsListUseCase,
+    private val socialTimeFormatter: SocialTimeFormatter,
+    private val dateFormat: SimpleDateFormat
 ) : BaseViewModel<FeedViewState>(FeedViewState.Initial) {
 
     companion object {
@@ -39,7 +43,9 @@ class FeedViewModel @Inject constructor(
 
     private fun loadNews() = viewModelScope.launch {
         getNewsListUseCase(Unit)
-            .map { it.map { topic -> topic.toUiModel() } }
+            .map { newsList ->
+                newsList.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) }
+            }
             .doOnSuccess { sendAction(FeedViewActions.UpdateNews(it)) }
             .doOnError(Timber::d)
     }
