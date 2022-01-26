@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +33,15 @@ fun NewsListItem(
             modifier = Modifier
                 .fillMaxHeight()
                 .aspectRatio(1f),
-            painter = rememberImagePainter(data.imageUrl),
+            painter = rememberImagePainter(
+                data = data.imageUrl,
+                builder = {
+                    placeholder(R.drawable.image_paceholder)
+                    crossfade(true)
+                }
+            ),
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center,
             contentDescription = null
         )
         Column(modifier = Modifier.padding(start = 10.dp)) {
