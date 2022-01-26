@@ -17,6 +17,7 @@ import ny.times.reader.base.presentation.ui.ChipGroup
 import ny.times.reader.base.presentation.ui.Toolbar
 import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.feed.R
+import ny.times.reader.feed.presentation.data.NewsUiEntity
 import ny.times.reader.feed.presentation.list.NewsListItem
 
 @Composable
@@ -28,21 +29,23 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
             chips = feedVm.state.chips,
             onSelectedChanged = feedVm::chipSelected
         )
-        LazyColumn {
-            itemsIndexed(
-                items = feedVm.state.news,
-                key = { _, item -> item.id }
-            ) { index, news ->
-                NewsListItem(news)
-                val isLastElement = index + 1 == feedVm.state.news.size
-                if (!isLastElement)
-                    Divider(
-                        color = TimesReaderTheme.colors.lightGrey,
-                        modifier = Modifier.padding(16.dp)
-                    )
-                else
-                    Spacer(modifier = Modifier.height(16.dp))
-            }
+        NewsList(feedVm.state.news)
+    }
+}
+
+@Composable
+fun NewsList(news: List<NewsUiEntity>) {
+    LazyColumn {
+        itemsIndexed(items = news, key = { _, item -> item.title }) { index, newsItem ->
+            NewsListItem(newsItem)
+            val isLastElement = index + 1 == news.size
+            if (!isLastElement)
+                Divider(
+                    color = TimesReaderTheme.colors.lightGrey,
+                    modifier = Modifier.padding(16.dp)
+                )
+            else
+                Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

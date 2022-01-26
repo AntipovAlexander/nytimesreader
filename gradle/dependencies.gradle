@@ -135,11 +135,13 @@ deps.testing = [
 // Network
 versions.okhttp = "4.9.1"
 versions.retrofit = "2.9.0"
+versions.retrofit_coroutines = "0.9.2"
 versions.retrofit_kotlin_serialization = "0.8.0"
 
 deps.retrofit = [
         runtime             : "com.squareup.retrofit2:retrofit:$versions.retrofit",
-        kotlin_serialization: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$versions.retrofit_kotlin_serialization"
+        kotlin_serialization: "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$versions.retrofit_kotlin_serialization",
+        coroutines          : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$versions.retrofit_coroutines"
 ]
 
 deps.network = [

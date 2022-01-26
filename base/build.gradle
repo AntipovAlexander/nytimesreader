@@ -4,6 +4,15 @@ dependencies {
     implementation deps.kotlin.stdlib
     implementation deps.androidx.material
 
+    // OkHttp
+    implementation(
+            deps.network.okhttp,
+            deps.network.logging_interceptor
+    )
+
+    // Hilt
+    implementation(deps.dagger_hilt.android)
+
     // Kotlin
     api(
             deps.kotlin.stdlib,

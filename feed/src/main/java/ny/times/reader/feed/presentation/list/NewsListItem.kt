@@ -34,7 +34,7 @@ fun NewsListItem(
                 .fillMaxHeight()
                 .aspectRatio(1f),
             painter = rememberImagePainter(
-                data = data.imageUrl,
+                data = data.thumb,
                 builder = {
                     placeholder(R.drawable.image_paceholder)
                     crossfade(true)
@@ -96,7 +96,7 @@ fun NewsListItem(
 )
 fun NewsListItemPreview() {
     val data = NewsUiEntity(
-        1L,
+        "https://google.com",
         "https://google.com",
         "Monarch population soars population soars  4,900 percent since last year in thrilling 2021 western migration",
         "by John Doe",

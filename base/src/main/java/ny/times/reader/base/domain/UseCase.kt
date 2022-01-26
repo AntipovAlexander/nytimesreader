@@ -2,8 +2,8 @@ package ny.times.reader.base.domain
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ny.times.reader.base.domain.entity.Either
-import ny.times.reader.base.domain.entity.runCatching
+import ny.times.reader.base.data.entity.Either
+import ny.times.reader.base.data.entity.runCatching
 
 abstract class UseCase<in Params, out ResultType> where Params : Any {
 

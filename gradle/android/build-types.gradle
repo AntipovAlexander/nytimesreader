@@ -11,6 +11,9 @@ android {
     buildTypes {
         all {
             buildConfigField("String", "APP_VERSION", "\"$versionStr\"")
+            buildConfigField("String", "BASE_API_URL", '"https://api.nytimes.com/svc/search/v2/"')
+            buildConfigField("String", "BASE_URL", '"https://www.nytimes.com/"')
+            buildConfigField("String", "API_KEY", '"mcta793cgAqxxzWNKe7PxxAjIMvHO8ZD"')
         }
         release {
             minifyEnabled true

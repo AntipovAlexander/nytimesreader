@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package ny.times.reader.base.domain.entity
+package ny.times.reader.base.data.entity
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ny.times.reader.base.domain.entity.Either.Left
-import ny.times.reader.base.domain.entity.Either.Right
+import ny.times.reader.base.data.entity.Either.Left
+import ny.times.reader.base.data.entity.Either.Right
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 

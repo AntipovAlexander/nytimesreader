@@ -6,4 +6,10 @@ import ny.times.reader.feed.domain.entity.Topic
 
 fun Topic.toUiModel(isSelected: Boolean = false): ChipContent = ChipContent(id, name, isSelected)
 
-fun News.toUiModel(): NewsUiEntity = NewsUiEntity(id, imageUrl, title, authorName, postedAgo)
+fun News.toUiModel(): NewsUiEntity = NewsUiEntity(
+    id = id,
+    thumb = thumbUrl,
+    title = title,
+    authorName = authorName,
+    postedAgo = postedAt
+)

@@ -29,6 +29,7 @@ dependencies {
     // Retrofit
     implementation(
             deps.retrofit.runtime,
+            deps.retrofit.coroutines,
             deps.retrofit.kotlin_serialization,
     )
 
