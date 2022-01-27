@@ -7,7 +7,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Times Reader"
 include ':app'
-include ':base'
+include ':core'
 include ':home'
 include ':feed'
 include ':search'

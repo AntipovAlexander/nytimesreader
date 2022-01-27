@@ -1,5 +1,6 @@
 apply from: rootProject.file('gradle/android/android-library.gradle')
 
 dependencies {
-    implementation(project(":base"))
+    implementation implementation(project(':core',))
 }
+
