@@ -22,7 +22,10 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
             chips = feedVm.state.chips,
             onSelectedChanged = feedVm::chipSelected
         )
-        NewsContent(feedVm.state.contentState, feedVm::retryClicked)
+        NewsContent(
+            state = feedVm.state.contentState,
+            onRetryClicked = feedVm::retryClicked
+        )
     }
 }
 

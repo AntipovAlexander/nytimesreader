@@ -18,7 +18,7 @@ import ny.times.reader.base.theme.TimesReaderTheme
 @Composable
 fun EmptyPlaceholder(
     modifier: Modifier = Modifier,
-    text: String = stringResource(R.string.default_empty_text)
+    text: String
 ) {
     Box(
         contentAlignment = Alignment.Center,
@@ -40,5 +40,5 @@ fun EmptyPlaceholder(
 @Composable
 @Preview
 fun SimplePlaceholderPreview() {
-    EmptyPlaceholder()
+    EmptyPlaceholder(text = stringResource(R.string.default_empty_text))
 }

@@ -8,9 +8,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import ny.times.reader.base.R
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.entity.news.NewsUiEntity
 import ny.times.reader.base.presentation.ui.placeholders.EmptyPlaceholder
@@ -19,12 +17,17 @@ import ny.times.reader.base.presentation.ui.widget.CircularProgress
 import ny.times.reader.base.theme.TimesReaderTheme
 
 @Composable
-fun NewsContent(state: NewsContentState, onRetryClicked: () -> Unit) {
+fun NewsContent(
+    state: NewsContentState,
+    onRetryClicked: () -> Unit = {}
+) {
     when (state) {
         is NewsContentState.Progress -> CircularProgress()
         is NewsContentState.HasContent -> NewsList(state.news)
-        is NewsContentState.ErrorState -> ErrorPlaceholder { onRetryClicked() }
-        is NewsContentState.EmptyState -> EmptyPlaceholder(text = stringResource(id = R.string.news_list_empty_text))
+        is NewsContentState.EmptyState -> EmptyPlaceholder(text = state.text)
+        is NewsContentState.ErrorState -> ErrorPlaceholder(
+            errorText = state.text,
+            onRetryClick = { onRetryClicked() })
     }
 }
 

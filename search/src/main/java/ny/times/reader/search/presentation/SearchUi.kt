@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.SearchBar
 import ny.times.reader.base.presentation.ui.widget.Toolbar
 import ny.times.reader.search.R
@@ -17,9 +18,11 @@ fun Search(searchVm: SearchViewModel = hiltViewModel()) {
     Column {
         Toolbar(text = stringResource(R.string.search))
         SearchBar(
+            text = searchVm.state.searchQuery,
             modifier = Modifier.padding(all = 16.dp),
-            onTextChanged = {}
+            onTextChanged = searchVm::searchQueryChanged
         )
+        NewsContent(searchVm.state.contentState)
     }
 }
 

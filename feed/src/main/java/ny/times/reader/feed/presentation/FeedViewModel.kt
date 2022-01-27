@@ -6,11 +6,15 @@ import kotlinx.coroutines.launch
 import ny.times.reader.base.data.entity.base.doOnError
 import ny.times.reader.base.data.entity.base.doOnSuccess
 import ny.times.reader.base.data.entity.base.map
+import ny.times.reader.base.presentation.entity.mappers.toUiModel
 import ny.times.reader.base.presentation.entity.news.NewsContentState
+import ny.times.reader.base.presentation.entity.news.NewsUiEntity
 import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
+import ny.times.reader.base.utils.provider.ResourceProvider
 import ny.times.reader.base.utils.time_formatter.SocialTimeFormatter
+import ny.times.reader.feed.R
 import ny.times.reader.feed.domain.use_case.GetNewsListUseCase
 import ny.times.reader.feed.domain.use_case.GetTopicsUseCase
 import ny.times.reader.feed.presentation.data.toUiModel
@@ -23,6 +27,7 @@ class FeedViewModel @Inject constructor(
     private val getTopicsUseCase: GetTopicsUseCase,
     private val getNewsListUseCase: GetNewsListUseCase,
     private val socialTimeFormatter: SocialTimeFormatter,
+    private val resourceProvider: ResourceProvider,
     private val dateFormat: SimpleDateFormat
 ) : BaseViewModel<FeedViewState>(FeedViewState.Initial) {
 
@@ -46,7 +51,7 @@ class FeedViewModel @Inject constructor(
             contentState = NewsContentState.HasContent(viewAction.news)
         )
         is FeedViewActions.EmptyState -> state.copy(
-            contentState = NewsContentState.EmptyState
+            contentState = NewsContentState.EmptyState(viewAction.text)
         )
         else -> state
     }
@@ -67,14 +72,15 @@ class FeedViewModel @Inject constructor(
             .map { newsList ->
                 newsList.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) }
             }
-            .doOnSuccess {
-                if (it.isEmpty())
-                    sendAction(FeedViewActions.EmptyState)
-                else
-                    sendAction(FeedViewActions.UpdateNews(it))
+            .doOnSuccess(::onNewsLoaded)
+            .doOnError { sendAction(FeedViewActions.SetError(resourceProvider.getString(R.string.default_error_text))) }
+    }
 
-            }
-            .doOnError { sendAction(FeedViewActions.SetError("Error happened. Please retry.")) }
+    private fun onNewsLoaded(result: List<NewsUiEntity>) {
+        if (result.isEmpty())
+            sendAction(FeedViewActions.EmptyState(resourceProvider.getString(R.string.news_list_empty_text)))
+        else
+            sendAction(FeedViewActions.UpdateNews(result))
     }
 
     fun chipSelected(selectedChip: ChipContent) {

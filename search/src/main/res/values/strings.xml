@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Search</string>
+    <string name="empty_state_no_input">Start typing to search …</string>
+    <string name="empty_state_no_result">No results for your request.\nTry another one.</string>
 </resources>

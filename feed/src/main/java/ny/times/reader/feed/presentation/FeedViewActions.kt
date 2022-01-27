@@ -8,6 +8,6 @@ sealed class FeedViewActions : BaseViewAction {
     data class UpdateChips(val chips: List<ChipContent>) : FeedViewActions()
     data class UpdateNews(val news: List<NewsUiEntity>) : FeedViewActions()
     data class SetError(val error: String) : FeedViewActions()
+    data class EmptyState(val text: String) : FeedViewActions()
     object StartLoading : FeedViewActions()
-    object EmptyState : FeedViewActions()
 }

@@ -8,8 +8,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -20,7 +18,11 @@ import ny.times.reader.base.R
 import ny.times.reader.base.theme.TimesReaderTheme
 
 @Composable
-fun SearchBar(modifier: Modifier = Modifier, onTextChanged: (String) -> Unit) {
+fun SearchBar(
+    modifier: Modifier = Modifier,
+    text: String = "",
+    onTextChanged: (String) -> Unit
+) {
     Surface(
         color = TimesReaderTheme.colors.lightGrey,
         modifier = Modifier
@@ -28,10 +30,9 @@ fun SearchBar(modifier: Modifier = Modifier, onTextChanged: (String) -> Unit) {
             .height(40.dp),
         shape = RoundedCornerShape(40.dp)
     ) {
-        val inputText = remember { mutableStateOf("") }
         BasicTextField(
-            value = inputText.value,
-            onValueChange = { inputText.value = it; onTextChanged(it) },
+            value = text,
+            onValueChange = { onTextChanged(it) },
             textStyle = TimesReaderTheme.typography.H1Regular,
             singleLine = true,
             decorationBox = { innerTextField ->
@@ -52,7 +53,7 @@ fun SearchBar(modifier: Modifier = Modifier, onTextChanged: (String) -> Unit) {
                             .fillMaxWidth()
                             .weight(1f)
                     ) {
-                        if (inputText.value.isEmpty()) Text(
+                        if (text.isEmpty()) Text(
                             text = stringResource(id = R.string.search),
                             style = TimesReaderTheme.typography.H1Regular,
                             color = TimesReaderTheme.colors.grey
@@ -60,12 +61,12 @@ fun SearchBar(modifier: Modifier = Modifier, onTextChanged: (String) -> Unit) {
                         innerTextField()
                     }
                     IconButton(
-                        onClick = { inputText.value = "" }
+                        onClick = { onTextChanged("") }
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_cancel),
                             contentDescription = null,
-                            tint = if (inputText.value.isEmpty())
+                            tint = if (text.isEmpty())
                                 TimesReaderTheme.colors.grey
                             else
                                 TimesReaderTheme.colors.black
