@@ -9,11 +9,14 @@ class GetTopicsUseCase @Inject constructor() : UseCase<Unit, List<Topic>>() {
         return listOf(
             Topic(1, "Culture"),
             Topic(2, "Science"),
-            Topic(3, "Technologies"),
-            Topic(4, "Music"),
-            Topic(5, "Arts"),
-            Topic(6, "Investment"),
-            Topic(7, "Business")
+            Topic(3, "Education"),
+            Topic(4, "Fashion"),
+            Topic(5, "Health"),
+            Topic(6, "Media"),
+            Topic(7, "Business"),
+            Topic(8, "Movies"),
+            Topic(9, "Society"),
+            Topic(10, "Weather")
         )
     }
 }

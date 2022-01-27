@@ -38,7 +38,7 @@ data class NewsList(val response: Response) : Dto<List<News>> {
     data class Headline(val main: String)
 
     @Serializable
-    data class Byline(val original: String)
+    data class Byline(val original: String? = null)
 
     @Serializable
     data class Multimedia(val url: String, val subType: String)

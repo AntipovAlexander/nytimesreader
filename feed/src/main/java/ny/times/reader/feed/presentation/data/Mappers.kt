@@ -15,6 +15,6 @@ fun News.toUiModel(
     id = id,
     thumb = thumbUrl,
     title = title,
-    authorName = authorName,
+    authorName = authorName ?: "",
     postedAgo = socialTimeFormatter.getTimeAgo(dateFormat.parse(postedAt)?.time ?: 0L)
 )

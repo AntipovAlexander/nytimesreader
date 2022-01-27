@@ -6,12 +6,18 @@ import ny.times.reader.feed.presentation.data.NewsUiEntity
 
 data class FeedViewState(
     val chips: List<ChipContent>,
-    val news: List<NewsUiEntity>
+    val contentState: ContentState
 ) : BaseViewState {
     companion object {
         val Initial = FeedViewState(
             chips = emptyList(),
-            news = emptyList(),
+            contentState = ContentState.Progress,
         )
     }
+}
+
+sealed class ContentState {
+    class ErrorState(val text: String) : ContentState()
+    class HasContent(val news: List<NewsUiEntity>) : ContentState()
+    object Progress : ContentState()
 }

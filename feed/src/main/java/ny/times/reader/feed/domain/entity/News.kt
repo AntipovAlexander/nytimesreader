@@ -7,7 +7,7 @@ data class News(
     val title: String,
     val snippet: String,
     val leadParagraph: String,
-    val authorName: String,
+    val authorName: String?,
     val postedAt: String,
     val url: String
 )

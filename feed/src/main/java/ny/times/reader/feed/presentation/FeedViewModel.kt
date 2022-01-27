@@ -31,29 +31,38 @@ class FeedViewModel @Inject constructor(
 
     init {
         loadTopics()
-        loadNews()
+    }
+
+    override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
+        is FeedViewActions.UpdateChips -> state.copy(chips = viewAction.chips)
+        is FeedViewActions.StartLoading -> state.copy(contentState = ContentState.Progress)
+        is FeedViewActions.SetError -> state.copy(contentState = ContentState.ErrorState(viewAction.error))
+        is FeedViewActions.UpdateNews -> state.copy(
+            contentState = ContentState.HasContent(
+                viewAction.news
+            )
+        )
+        else -> state
     }
 
     private fun loadTopics() = viewModelScope.launch {
         getTopicsUseCase(Unit)
             .map { it.mapIndexed { i, topic -> topic.toUiModel(i == DEFAULT_SELECTED_CATEGORY) } }
-            .doOnSuccess { sendAction(FeedViewActions.UpdateChips(it)) }
+            .doOnSuccess {
+                loadNews(it.first().text)
+                sendAction(FeedViewActions.UpdateChips(it))
+            }
             .doOnError(Timber::d)
     }
 
-    private fun loadNews() = viewModelScope.launch {
-        getNewsListUseCase(Unit)
+    private fun loadNews(category: String) = viewModelScope.launch {
+        sendAction(FeedViewActions.StartLoading)
+        getNewsListUseCase(category)
             .map { newsList ->
                 newsList.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) }
             }
             .doOnSuccess { sendAction(FeedViewActions.UpdateNews(it)) }
-            .doOnError(Timber::d)
-    }
-
-    override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
-        is FeedViewActions.UpdateChips -> state.copy(chips = viewAction.chips)
-        is FeedViewActions.UpdateNews -> state.copy(news = viewAction.news)
-        else -> state
+            .doOnError { sendAction(FeedViewActions.SetError("Error happened. Please retry.")) }
     }
 
     fun chipSelected(selectedChip: ChipContent) {
@@ -68,6 +77,10 @@ class FeedViewModel @Inject constructor(
             this[newSelected] = chips[newSelected].copy(isSelected = true)
         }
         sendAction(FeedViewActions.UpdateChips(updatedChips))
+        loadNews(selectedChip.text)
     }
 
+    fun retryClicked() {
+        loadNews(state.chips.first { it.isSelected }.text)
+    }
 }

@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ny.times.reader.base.presentation.ui.ChipGroup
+import ny.times.reader.base.presentation.ui.CircularProgress
+import ny.times.reader.base.presentation.ui.ErrorPlaceholder
 import ny.times.reader.base.presentation.ui.Toolbar
 import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.feed.R
@@ -29,7 +31,11 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
             chips = feedVm.state.chips,
             onSelectedChanged = feedVm::chipSelected
         )
-        NewsList(feedVm.state.news)
+        when (val state = feedVm.state.contentState) {
+            is ContentState.Progress -> CircularProgress()
+            is ContentState.HasContent -> NewsList(state.news)
+            is ContentState.ErrorState -> ErrorPlaceholder(onRetryClick = feedVm::retryClicked)
+        }
     }
 }
 

@@ -8,4 +8,6 @@
     <string name="x_hours_ago">%d hours ago</string>
     <string name="yesterday">Yesterday</string>
     <string name="x_days_ago">%d days ago</string>
+    <string name="default_error_text">Unknown error happened. Please retry.</string>
+    <string name="retry">Retry</string>
 </resources>

@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class GetNewsListUseCase @Inject constructor(
     private val newsRepository: NewsRepository
-) : UseCase<Unit, List<News>>() {
-    override suspend fun executeOnBackground(params: Unit): List<News> {
-        return newsRepository.getNewsForCategory("Sports")
-    }
+) : UseCase<String, List<News>>() {
+
+    override suspend fun executeOnBackground(params: String): List<News> =
+        newsRepository.getNewsForCategory(params)
 }
