@@ -3,9 +3,9 @@ package ny.times.reader.feed.presentation
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ny.times.reader.base.data.entity.doOnError
-import ny.times.reader.base.data.entity.doOnSuccess
-import ny.times.reader.base.data.entity.map
+import ny.times.reader.base.data.entity.base.doOnError
+import ny.times.reader.base.data.entity.base.doOnSuccess
+import ny.times.reader.base.data.entity.base.map
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction

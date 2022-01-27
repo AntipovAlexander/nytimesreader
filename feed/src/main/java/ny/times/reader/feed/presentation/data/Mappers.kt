@@ -1,9 +1,9 @@
 package ny.times.reader.feed.presentation.data
 
+import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.entity.news.NewsUiEntity
 import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.utils.time_formatter.SocialTimeFormatter
-import ny.times.reader.feed.domain.entity.News
 import ny.times.reader.feed.domain.entity.Topic
 import java.text.SimpleDateFormat
 

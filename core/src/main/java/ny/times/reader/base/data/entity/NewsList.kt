@@ -1,10 +1,10 @@
-package ny.times.reader.feed.data.entity
+package ny.times.reader.base.data.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import ny.times.reader.base.data.entity.Dto
+import ny.times.reader.base.data.entity.base.Dto
+import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.utils.asImageUrl
-import ny.times.reader.feed.domain.entity.News
 
 @Serializable
 data class NewsList(val response: Response) : Dto<List<News>> {

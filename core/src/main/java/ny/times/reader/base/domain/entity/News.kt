@@ -1,4 +1,4 @@
-package ny.times.reader.feed.domain.entity
+package ny.times.reader.base.domain.entity
 
 data class News(
     val id: String,

@@ -10,8 +10,8 @@ apply from: rootProject.file('gradle/android/android.gradle')
 
 dependencies {
 
-    implementation(project(':core',),
-
+    implementation(
+            project(':core'),
             project(':home')
     )
 

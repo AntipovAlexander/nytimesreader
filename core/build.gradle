@@ -1,4 +1,7 @@
 apply from: rootProject.file('gradle/android/android-library.gradle')
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation deps.kotlin.stdlib
@@ -11,7 +14,13 @@ dependencies {
     )
 
     // Hilt
-    implementation(deps.dagger_hilt.android)
+    api(
+            deps.dagger_hilt.android,
+            deps.dagger_hilt.android,
+            deps.dagger_hilt.compose
+    )
+    kapt deps.dagger_hilt.android_compiler
+    kapt deps.dagger_hilt.androidx_compiler
 
     // Kotlin
     api(
@@ -56,6 +65,11 @@ dependencies {
     // Coil
     api(
             deps.coil.compose_loader
+    )
+
+    // Retrofit
+    api(
+            deps.retrofit.runtime
     )
 
     // Debug

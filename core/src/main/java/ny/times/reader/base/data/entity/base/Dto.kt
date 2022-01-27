@@ -1,4 +1,4 @@
-package ny.times.reader.base.data.entity
+package ny.times.reader.base.data.entity.base
 
 interface Dto<out T> {
     fun convert(): T
