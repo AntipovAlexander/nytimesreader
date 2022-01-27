@@ -9,6 +9,8 @@
     <string name="yesterday">Yesterday</string>
     <string name="x_days_ago">%d days ago</string>
     <string name="default_error_text">Unknown error happened. Please retry.</string>
+    <string name="default_empty_text">There is no data.</string>
+    <string name="news_list_empty_text">There is no news for the category you\'ve selected.\nTry another one.</string>
     <string name="retry">Retry</string>
     <string name="search">Search</string>
 </resources>

@@ -1,23 +1,17 @@
 package ny.times.reader.feed.presentation
 
-import ny.times.reader.base.presentation.ui.ChipContent
+import ny.times.reader.base.presentation.entity.news.NewsContentState
+import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewState
-import ny.times.reader.feed.presentation.data.NewsUiEntity
 
 data class FeedViewState(
     val chips: List<ChipContent>,
-    val contentState: ContentState
+    val contentState: NewsContentState
 ) : BaseViewState {
     companion object {
         val Initial = FeedViewState(
             chips = emptyList(),
-            contentState = ContentState.Progress,
+            contentState = NewsContentState.Progress,
         )
     }
-}
-
-sealed class ContentState {
-    class ErrorState(val text: String) : ContentState()
-    class HasContent(val news: List<NewsUiEntity>) : ContentState()
-    object Progress : ContentState()
 }

@@ -1,4 +1,4 @@
-package ny.times.reader.feed.presentation.data
+package ny.times.reader.base.presentation.entity.news
 
 data class NewsUiEntity(
     val id: String,

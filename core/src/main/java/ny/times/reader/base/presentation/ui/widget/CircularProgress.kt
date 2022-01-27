@@ -1,4 +1,4 @@
-package ny.times.reader.base.presentation.ui
+package ny.times.reader.base.presentation.ui.widget
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package ny.times.reader.feed.presentation.list
+package ny.times.reader.base.presentation.ui.news
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -14,9 +14,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
+import ny.times.reader.base.R
+import ny.times.reader.base.presentation.entity.news.NewsUiEntity
 import ny.times.reader.base.theme.TimesReaderTheme
-import ny.times.reader.feed.R
-import ny.times.reader.feed.presentation.data.NewsUiEntity
 
 @Composable
 fun NewsListItem(

@@ -1,4 +1,4 @@
-package ny.times.reader.base.presentation.ui
+package ny.times.reader.base.presentation.ui.widget
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -30,6 +30,6 @@ fun Toolbar(modifier: Modifier = Modifier, text: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun previewToolbar() {
+fun PreviewToolbar() {
     Toolbar(text = "preview")
 }

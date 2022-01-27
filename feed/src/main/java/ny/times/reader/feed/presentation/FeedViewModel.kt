@@ -6,7 +6,8 @@ import kotlinx.coroutines.launch
 import ny.times.reader.base.data.entity.doOnError
 import ny.times.reader.base.data.entity.doOnSuccess
 import ny.times.reader.base.data.entity.map
-import ny.times.reader.base.presentation.ui.ChipContent
+import ny.times.reader.base.presentation.entity.news.NewsContentState
+import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
 import ny.times.reader.base.utils.time_formatter.SocialTimeFormatter
@@ -35,12 +36,17 @@ class FeedViewModel @Inject constructor(
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
         is FeedViewActions.UpdateChips -> state.copy(chips = viewAction.chips)
-        is FeedViewActions.StartLoading -> state.copy(contentState = ContentState.Progress)
-        is FeedViewActions.SetError -> state.copy(contentState = ContentState.ErrorState(viewAction.error))
+        is FeedViewActions.StartLoading -> state.copy(
+            contentState = NewsContentState.Progress
+        )
+        is FeedViewActions.SetError -> state.copy(
+            contentState = NewsContentState.ErrorState(viewAction.error)
+        )
         is FeedViewActions.UpdateNews -> state.copy(
-            contentState = ContentState.HasContent(
-                viewAction.news
-            )
+            contentState = NewsContentState.HasContent(viewAction.news)
+        )
+        is FeedViewActions.EmptyState -> state.copy(
+            contentState = NewsContentState.EmptyState
         )
         else -> state
     }
@@ -61,7 +67,13 @@ class FeedViewModel @Inject constructor(
             .map { newsList ->
                 newsList.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) }
             }
-            .doOnSuccess { sendAction(FeedViewActions.UpdateNews(it)) }
+            .doOnSuccess {
+                if (it.isEmpty())
+                    sendAction(FeedViewActions.EmptyState)
+                else
+                    sendAction(FeedViewActions.UpdateNews(it))
+
+            }
             .doOnError { sendAction(FeedViewActions.SetError("Error happened. Please retry.")) }
     }
 

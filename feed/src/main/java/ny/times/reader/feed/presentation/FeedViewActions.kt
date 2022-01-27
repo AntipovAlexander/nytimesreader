@@ -1,12 +1,13 @@
 package ny.times.reader.feed.presentation
 
-import ny.times.reader.base.presentation.ui.ChipContent
+import ny.times.reader.base.presentation.entity.news.NewsUiEntity
+import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.presentation.view_model.BaseViewAction
-import ny.times.reader.feed.presentation.data.NewsUiEntity
 
 sealed class FeedViewActions : BaseViewAction {
     data class UpdateChips(val chips: List<ChipContent>) : FeedViewActions()
     data class UpdateNews(val news: List<NewsUiEntity>) : FeedViewActions()
     data class SetError(val error: String) : FeedViewActions()
     object StartLoading : FeedViewActions()
+    object EmptyState : FeedViewActions()
 }
