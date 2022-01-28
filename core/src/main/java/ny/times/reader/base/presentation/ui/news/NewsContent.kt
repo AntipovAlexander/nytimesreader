@@ -1,5 +1,6 @@
 package ny.times.reader.base.presentation.ui.news
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,16 +19,19 @@ import ny.times.reader.base.theme.TimesReaderTheme
 
 @Composable
 fun NewsContent(
+    modifier: Modifier = Modifier,
     state: NewsContentState,
     onRetryClicked: () -> Unit = {}
 ) {
-    when (state) {
-        is NewsContentState.Progress -> CircularProgress()
-        is NewsContentState.HasContent -> NewsList(state.news)
-        is NewsContentState.EmptyState -> EmptyPlaceholder(text = state.text)
-        is NewsContentState.ErrorState -> ErrorPlaceholder(
-            errorText = state.text,
-            onRetryClick = { onRetryClicked() })
+    Box(modifier = modifier) {
+        when (state) {
+            is NewsContentState.Progress -> CircularProgress()
+            is NewsContentState.HasContent -> NewsList(state.news)
+            is NewsContentState.EmptyState -> EmptyPlaceholder(text = state.text)
+            is NewsContentState.ErrorState -> ErrorPlaceholder(
+                errorText = state.text,
+                onRetryClick = { onRetryClicked() })
+        }
     }
 }
 

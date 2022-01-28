@@ -22,7 +22,7 @@ fun Search(searchVm: SearchViewModel = hiltViewModel()) {
             modifier = Modifier.padding(all = 16.dp),
             onTextChanged = searchVm::searchQueryChanged
         )
-        NewsContent(searchVm.state.contentState)
+        NewsContent(state = searchVm.state.contentState)
     }
 }
 
