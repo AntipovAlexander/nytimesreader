@@ -39,7 +39,7 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
                 val newOffset = chipOffset.value + delta
                 val paddedHeight = chipHeight.value + chipPaddingPx * 2
                 chipOffset.value = newOffset.coerceIn(-paddedHeight, 0f)
-                return Offset.Zero
+                return if (chipOffset.value < 0 && chipOffset.value > -paddedHeight) available else Offset.Zero
             }
         }
     }
