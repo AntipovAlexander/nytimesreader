@@ -1,6 +1,7 @@
 package ny.times.reader.feed.presentation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -36,34 +37,26 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
                 val delta = available.y
                 val newOffset = chipOffset.value + delta
-                chipOffset.value = newOffset.coerceIn(-(chipHeight.value + chipPaddingPx * 2), 0f)
+                val paddedHeight = chipHeight.value + chipPaddingPx * 2
+                chipOffset.value = newOffset.coerceIn(-paddedHeight, 0f)
                 return Offset.Zero
             }
         }
     }
-    Box(modifier = Modifier.nestedScroll(nestedScrollConnection)) {
-        ChipGroup(
-            modifier = Modifier
-                .padding(vertical = chipPadding)
-                .offset { IntOffset(x = 0, y = toolbarHeight.value) }
-                .offset { IntOffset(x = 0, y = chipOffset.value.roundToInt()) }
-                .onGloballyPositioned { chipHeight.value = it.size.height },
-            chips = feedVm.state.chips,
-            onSelectedChanged = feedVm::chipSelected
-        )
-        NewsContent(
-            modifier = Modifier
-                .offset {
-                    IntOffset(
-                        x = 0,
-                        y = chipHeight.value + (chipPaddingPx * 2).roundToInt()
-                    )
-                }
-                .offset { IntOffset(x = 0, y = toolbarHeight.value) }
-                .offset { IntOffset(x = 0, y = chipOffset.value.roundToInt()) },
-            state = feedVm.state.contentState,
-            onRetryClicked = feedVm::retryClicked
-        )
+    Box {
+        Column(modifier = Modifier
+            .nestedScroll(nestedScrollConnection)
+            .offset { IntOffset(0, chipOffset.value.roundToInt() + toolbarHeight.value) })
+        {
+            ChipGroup(
+                modifier = Modifier
+                    .padding(vertical = chipPadding)
+                    .onGloballyPositioned { chipHeight.value = it.size.height },
+                chips = feedVm.state.chips,
+                onSelectedChanged = feedVm::chipSelected
+            )
+            NewsContent(state = feedVm.state.contentState, onRetryClicked = feedVm::retryClicked)
+        }
         Toolbar(
             modifier = Modifier.onGloballyPositioned { toolbarHeight.value = it.size.height },
             text = stringResource(R.string.feed)
