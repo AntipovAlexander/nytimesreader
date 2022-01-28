@@ -2,13 +2,13 @@ package ny.times.reader.feed.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -16,14 +16,12 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.ChipGroup
 import ny.times.reader.base.presentation.ui.widget.Toolbar
 import ny.times.reader.feed.R
-import kotlin.math.roundToInt
 
 @Composable
 fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
@@ -46,8 +44,8 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
     Box {
         Column(modifier = Modifier
             .nestedScroll(nestedScrollConnection)
-            .offset { IntOffset(0, chipOffset.value.roundToInt() + toolbarHeight.value) })
-        {
+            .graphicsLayer { translationY = chipOffset.value + toolbarHeight.value }
+        ) {
             ChipGroup(
                 modifier = Modifier
                     .padding(vertical = chipPadding)
