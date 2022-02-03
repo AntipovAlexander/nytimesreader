@@ -24,16 +24,9 @@ class NewsRepositoryImpl @Inject constructor(private val newsApi: NewsApi) : New
         _news.value = previousNews + response.response.docs.map { it.convert() }
     }
 
-    override suspend fun searchNewsByQuery(query: String, firstPage: Boolean): List<News> {
-        TODO()
-    }
-//        newsApi.newsListByCategory(
-//            query = "news_desk:($category)",
-//            sort = DEFAULT_SORTING_KEY
-//        ).convert()
-//    override suspend fun searchNewsByQuery(query: String): List<News> =
-//        newsApi.newsListByCategory(
-//            query = query,
-//            sort = DEFAULT_SORTING_KEY
-//        ).convert()
+    override suspend fun searchNewsByQuery(query: String): List<News> =
+        newsApi.newsListByQuery(
+            query = query,
+            sort = DEFAULT_SORTING_KEY
+        ).convert()
 }

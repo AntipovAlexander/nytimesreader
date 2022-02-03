@@ -32,7 +32,7 @@ class SearchViewModel @Inject constructor(
     )
 ) {
 
-    private val searchQueryFlow = MutableSharedFlow<String>()
+    private val searchQueryFlow = MutableStateFlow("")
 
     init {
         observeSearchQuery()
@@ -62,8 +62,13 @@ class SearchViewModel @Inject constructor(
         searchQueryFlow.emit(query)
     }
 
+    fun retrySearch() = viewModelScope.launch {
+        performSearch(searchQueryFlow.value)
+    }
+
     private fun observeSearchQuery() = viewModelScope.launch {
         searchQueryFlow
+            .drop(1)
             .debounce(300L)
             .distinctUntilChanged()
             .onEach(::performSearch)

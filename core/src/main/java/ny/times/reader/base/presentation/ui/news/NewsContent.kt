@@ -29,7 +29,7 @@ import ny.times.reader.base.theme.TimesReaderTheme
 fun NewsContent(
     modifier: Modifier = Modifier,
     state: NewsContentState,
-    paginationInProgress: Boolean,
+    paginationInProgress: Boolean = false,
     onRetryClicked: () -> Unit = {},
     lastVisibleItemChanged: (Int) -> Unit = {}
 ) {

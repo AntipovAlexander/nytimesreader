@@ -33,7 +33,7 @@ fun Search(searchVm: SearchViewModel = hiltViewModel()) {
             NewsContent(
                 modifier = scaffoldModifier,
                 state = searchVm.state.contentState,
-                paginationInProgress = false // todo!
+                onRetryClicked = searchVm::retrySearch
             )
         })
 }

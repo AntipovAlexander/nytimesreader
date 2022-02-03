@@ -8,6 +8,6 @@ import javax.inject.Inject
 class SearchNewsListUseCase @Inject constructor(private val newsRepository: NewsRepository) :
     UseCase<String, List<News>>() {
 
-    override suspend fun executeOnBackground(params: String): List<News> =
-        newsRepository.searchNewsByQuery(params, TODO())
+    override suspend fun executeOnBackground(params: String) =
+        newsRepository.searchNewsByQuery(params)
 }
