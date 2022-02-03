@@ -32,7 +32,8 @@ fun Search(searchVm: SearchViewModel = hiltViewModel()) {
         scrollableContent = { scaffoldModifier ->
             NewsContent(
                 modifier = scaffoldModifier,
-                state = searchVm.state.contentState
+                state = searchVm.state.contentState,
+                paginationInProgress = false // todo!
             )
         })
 }

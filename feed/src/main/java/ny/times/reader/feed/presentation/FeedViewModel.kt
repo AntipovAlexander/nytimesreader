@@ -2,10 +2,12 @@ package ny.times.reader.feed.presentation
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ny.times.reader.base.data.entity.base.doOnError
 import ny.times.reader.base.data.entity.base.doOnSuccess
 import ny.times.reader.base.data.entity.base.map
+import ny.times.reader.base.data.pagination.PaginationDelegate
 import ny.times.reader.base.presentation.entity.mappers.toUiModel
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.entity.news.NewsUiEntity
@@ -15,8 +17,9 @@ import ny.times.reader.base.presentation.view_model.BaseViewModel
 import ny.times.reader.base.utils.provider.ResourceProvider
 import ny.times.reader.base.utils.time_formatter.SocialTimeFormatter
 import ny.times.reader.feed.R
-import ny.times.reader.feed.domain.use_case.GetNewsListUseCase
 import ny.times.reader.feed.domain.use_case.GetTopicsUseCase
+import ny.times.reader.feed.domain.use_case.ObserveNewsUseCase
+import ny.times.reader.feed.domain.use_case.RequestNewsUseCase
 import ny.times.reader.feed.presentation.data.toUiModel
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -25,7 +28,8 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getTopicsUseCase: GetTopicsUseCase,
-    private val getNewsListUseCase: GetNewsListUseCase,
+    private val requestNewsUseCase: RequestNewsUseCase,
+    private val observeNewsUseCase: ObserveNewsUseCase,
     private val socialTimeFormatter: SocialTimeFormatter,
     private val resourceProvider: ResourceProvider,
     private val dateFormat: SimpleDateFormat
@@ -37,12 +41,33 @@ class FeedViewModel @Inject constructor(
 
     init {
         loadTopics()
+        observeNews()
+    }
+
+    private val paginationDelegate: PaginationDelegate = PaginationDelegate(
+        datasetSize = { state.contentState.news()?.size ?: 0 },
+        isPaginationInProgress = { state.paginationInProgress },
+        requestNextPage = { requestNextPage() }
+    )
+
+    private fun observeNews() = viewModelScope.launch {
+        observeNewsUseCase(Unit)
+            .map { list -> list.map { it.toUiModel(dateFormat, socialTimeFormatter) } }
+            .collect(::onNewsLoaded)
     }
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
-        is FeedViewActions.UpdateChips -> state.copy(chips = viewAction.chips)
+        is FeedViewActions.UpdateChips -> state.copy(
+            chips = viewAction.chips
+        )
         is FeedViewActions.StartLoading -> state.copy(
             contentState = NewsContentState.Progress
+        )
+        is FeedViewActions.UpdatePaginationState -> state.copy(
+            paginationInProgress = viewAction.isPaginating
+        )
+        is FeedViewActions.UpdateNextPage -> state.copy(
+            nextPage = viewAction.nextPage
         )
         is FeedViewActions.SetError -> state.copy(
             contentState = NewsContentState.ErrorState(viewAction.error)
@@ -60,23 +85,27 @@ class FeedViewModel @Inject constructor(
         getTopicsUseCase(Unit)
             .map { it.mapIndexed { i, topic -> topic.toUiModel(i == DEFAULT_SELECTED_CATEGORY) } }
             .doOnSuccess {
-                loadNews(it.first().text)
+                requestNewsFromStart(it.first().text)
                 sendAction(FeedViewActions.UpdateChips(it))
             }
             .doOnError(Timber::d)
     }
 
-    private fun loadNews(category: String) = viewModelScope.launch {
-        sendAction(FeedViewActions.StartLoading)
-        getNewsListUseCase(category)
-            .map { newsList ->
-                newsList.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) }
-            }
-            .doOnSuccess(::onNewsLoaded)
+    private fun requestNewsFromStart(category: String) = viewModelScope.launch {
+        sendActions(
+            FeedViewActions.UpdateNextPage(0),
+            FeedViewActions.StartLoading
+        )
+        val params = RequestNewsUseCase.Params(category, 0)
+        requestNewsUseCase(params)
             .doOnError { sendAction(FeedViewActions.SetError(resourceProvider.getString(R.string.default_error_text))) }
     }
 
     private fun onNewsLoaded(result: List<NewsUiEntity>) {
+        sendActions(
+            FeedViewActions.UpdatePaginationState(false),
+            FeedViewActions.UpdateNextPage(state.nextPage + 1)
+        )
         if (result.isEmpty())
             sendAction(FeedViewActions.EmptyState(resourceProvider.getString(R.string.news_list_empty_text)))
         else
@@ -86,19 +115,26 @@ class FeedViewModel @Inject constructor(
     fun chipSelected(selectedChip: ChipContent) {
         val chips = state.chips
         val oldSelected = chips.indexOfFirst { it.isSelected }
-        if (oldSelected == -1) return
         val newSelected = chips.indexOf(selectedChip)
-        if (newSelected == -1) return
+        if (oldSelected == -1 || newSelected == -1) return
         val updatedChips = buildList {
             addAll(chips)
             this[oldSelected] = chips[oldSelected].copy(isSelected = false)
             this[newSelected] = chips[newSelected].copy(isSelected = true)
         }
         sendAction(FeedViewActions.UpdateChips(updatedChips))
-        loadNews(selectedChip.text)
+        requestNewsFromStart(selectedChip.text)
     }
 
-    fun retryClicked() {
-        loadNews(state.chips.first { it.isSelected }.text)
+    fun lastVisibleItemChanged(currentPosition: Int) = paginationDelegate.paginate(currentPosition)
+
+    private fun requestNextPage() = viewModelScope.launch {
+        sendActions(FeedViewActions.UpdatePaginationState(true))
+        val currentCategory = state.chips.first { it.isSelected }.text
+        val params = RequestNewsUseCase.Params(currentCategory, state.nextPage)
+        requestNewsUseCase(params)
+            .doOnError { sendAction(FeedViewActions.UpdatePaginationState(false)) }
     }
+
+    fun retryClicked() = requestNewsFromStart(state.chips.first { it.isSelected }.text)
 }

@@ -9,7 +9,8 @@ interface NewsApi {
     @GET("articlesearch.json")
     suspend fun newsListByCategory(
         @Query("fq") query: String,
-        @Query("sort") sort: String
+        @Query("sort") sort: String,
+        @Query("page") page: Int
     ): NewsList
 
     @GET("articlesearch.json")

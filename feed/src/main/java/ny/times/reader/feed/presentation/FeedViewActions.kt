@@ -9,5 +9,7 @@ sealed class FeedViewActions : BaseViewAction {
     data class UpdateNews(val news: List<NewsUiEntity>) : FeedViewActions()
     data class SetError(val error: String) : FeedViewActions()
     data class EmptyState(val text: String) : FeedViewActions()
+    data class UpdatePaginationState(val isPaginating: Boolean) : FeedViewActions()
+    data class UpdateNextPage(val nextPage: Int) : FeedViewActions()
     object StartLoading : FeedViewActions()
 }

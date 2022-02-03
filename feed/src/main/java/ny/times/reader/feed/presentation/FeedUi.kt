@@ -34,7 +34,9 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
             NewsContent(
                 modifier = scaffoldModifier,
                 state = feedVm.state.contentState,
-                onRetryClicked = feedVm::retryClicked
+                onRetryClicked = feedVm::retryClicked,
+                paginationInProgress = feedVm.state.paginationInProgress,
+                lastVisibleItemChanged = feedVm::lastVisibleItemChanged
             )
         }
     )

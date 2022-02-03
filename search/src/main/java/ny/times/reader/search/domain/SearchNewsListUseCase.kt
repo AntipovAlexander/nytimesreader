@@ -9,5 +9,5 @@ class SearchNewsListUseCase @Inject constructor(private val newsRepository: News
     UseCase<String, List<News>>() {
 
     override suspend fun executeOnBackground(params: String): List<News> =
-        newsRepository.searchNewsByQuery(params)
+        newsRepository.searchNewsByQuery(params, TODO())
 }

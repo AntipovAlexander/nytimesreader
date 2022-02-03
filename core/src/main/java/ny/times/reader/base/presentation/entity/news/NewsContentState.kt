@@ -5,4 +5,6 @@ sealed class NewsContentState {
     class EmptyState(val text: String) : NewsContentState()
     class HasContent(val news: List<NewsUiEntity>) : NewsContentState()
     object Progress : NewsContentState()
+
+    fun news() = (this as? HasContent)?.news
 }

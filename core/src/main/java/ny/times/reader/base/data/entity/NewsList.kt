@@ -32,7 +32,21 @@ data class NewsList(val response: Response) : Dto<List<News>> {
         val headline: Headline,
         val byline: Byline,
         val multimedia: List<Multimedia>
-    )
+    ) : Dto<News> {
+        override fun convert(): News = News(
+            id = id,
+            imageUrl = multimedia.firstOrNull { it.subType == IMAGE_SUBTYPE }?.url?.asImageUrl()
+                ?: "",
+            thumbUrl = multimedia.firstOrNull { it.subType == THUMB_SUBTYPE }?.url?.asImageUrl()
+                ?: "",
+            title = headline.main,
+            snippet = snippet,
+            leadParagraph = leadParagraph,
+            authorName = byline.original,
+            postedAt = pubDate,
+            url = url
+        )
+    }
 
     @Serializable
     data class Headline(val main: String)
@@ -44,20 +58,6 @@ data class NewsList(val response: Response) : Dto<List<News>> {
     data class Multimedia(val url: String, val subType: String)
 
     override fun convert(): List<News> {
-        return this.response.docs.map { doc ->
-            News(
-                id = doc.id,
-                imageUrl = doc.multimedia.firstOrNull { it.subType == IMAGE_SUBTYPE }?.url?.asImageUrl()
-                    ?: "",
-                thumbUrl = doc.multimedia.firstOrNull { it.subType == THUMB_SUBTYPE }?.url?.asImageUrl()
-                    ?: "",
-                title = doc.headline.main,
-                snippet = doc.snippet,
-                leadParagraph = doc.leadParagraph,
-                authorName = doc.byline.original,
-                postedAt = doc.pubDate,
-                url = doc.url
-            )
-        }
+        return this.response.docs.map { doc -> doc.convert() }
     }
 }
