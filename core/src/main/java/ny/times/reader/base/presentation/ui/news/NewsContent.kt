@@ -1,5 +1,6 @@
 package ny.times.reader.base.presentation.ui.news
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -30,6 +31,7 @@ fun NewsContent(
     modifier: Modifier = Modifier,
     state: NewsContentState,
     paginationInProgress: Boolean = false,
+    itemClick: () -> Unit = {},
     onRetryClicked: () -> Unit = {},
     lastVisibleItemChanged: (Int) -> Unit = {}
 ) {
@@ -39,7 +41,8 @@ fun NewsContent(
             is NewsContentState.HasContent -> NewsList(
                 state.news,
                 paginationInProgress,
-                lastVisibleItemChanged
+                lastVisibleItemChanged,
+                itemClick
             )
             is NewsContentState.EmptyState -> EmptyPlaceholder(text = state.text)
             is NewsContentState.ErrorState -> ErrorPlaceholder(
@@ -55,12 +58,16 @@ private const val PAGINATION_ITEM_KEY = "pagination"
 fun NewsList(
     news: List<NewsUiEntity>,
     paginationInProgress: Boolean,
-    lastVisibleItemChanged: (Int) -> Unit
+    lastVisibleItemChanged: (Int) -> Unit,
+    itemClick: () -> Unit
 ) {
     val listState = rememberLazyListState()
     LazyColumn(state = listState) {
         itemsIndexed(items = news, key = { _, item -> item.id }) { index, item ->
-            NewsListItem(item)
+            NewsListItem(
+                modifier = Modifier.clickable { itemClick() },
+                data = item
+            )
             val isLastElement = index + 1 == news.size
             if (!isLastElement)
                 Divider(

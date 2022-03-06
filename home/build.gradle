@@ -1,8 +1,8 @@
 apply from: rootProject.file('gradle/android/android-library.gradle')
 
 dependencies {
-    implementation(project(':core',),
-
+    implementation(
+            project(':core'),
             project(":feed"),
             project(":search"),
             project(":bookmarks")

@@ -6,14 +6,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ny.times.reader.home.ui.Home
+import ny.times.reader.news_details.presentation.NewsDetails
 
 private const val HOME = "home"
+private const val NEWS_DETAILS = "news_details"
 
 @Composable
 fun AppActivityUi() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = HOME) {
-        composable(HOME) { Home() }
+        composable(HOME) {
+            Home {
+                navController.navigate(NEWS_DETAILS)
+            }
+        }
+        composable(NEWS_DETAILS) { NewsDetails() }
     }
 }
 

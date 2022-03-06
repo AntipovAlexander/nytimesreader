@@ -13,11 +13,13 @@ import ny.times.reader.home.navigation.NavigationGraph
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun Home() {
+fun Home(onNewsClicked: () -> Unit) {
     val homeNavController = rememberAnimatedNavController()
     Scaffold(bottomBar = { BottomNavigationBar(homeNavController) }) {
         NavigationGraph(
-            homeNavController, modifier = Modifier
+            newsClicked = onNewsClicked,
+            navController = homeNavController,
+            modifier = Modifier
                 .padding(bottom = it.calculateBottomPadding())
                 .fillMaxWidth()
                 .fillMaxHeight()

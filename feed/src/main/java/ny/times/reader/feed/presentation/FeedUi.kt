@@ -14,7 +14,10 @@ import ny.times.reader.base.presentation.ui.widget.Toolbar
 import ny.times.reader.feed.R
 
 @Composable
-fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
+fun Feed(
+    newsClicked: () -> Unit,
+    feedVm: FeedViewModel = hiltViewModel()
+) {
     val chipPadding = 8.dp
     EnterAlwaysScaffold(
         toolbar = { scaffoldModifier ->
@@ -32,6 +35,7 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
         },
         scrollableContent = { scaffoldModifier ->
             NewsContent(
+                itemClick = newsClicked,
                 modifier = scaffoldModifier,
                 state = feedVm.state.contentState,
                 onRetryClicked = feedVm::retryClicked,
@@ -45,5 +49,5 @@ fun Feed(feedVm: FeedViewModel = hiltViewModel()) {
 @Preview
 @Composable
 fun FeedPreview() {
-    Feed()
+    Feed(newsClicked = {})
 }

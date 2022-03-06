@@ -12,7 +12,8 @@ dependencies {
 
     implementation(
             project(':core'),
-            project(':home')
+            project(':home'),
+            project(':news_details')
     )
 
     // Hilt

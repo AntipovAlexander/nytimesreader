@@ -18,7 +18,11 @@ import ny.times.reader.search.presentation.Search
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modifier) {
+fun NavigationGraph(
+    newsClicked: () -> Unit,
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
     val animationOffset =
         LocalDensity
             .current
@@ -53,7 +57,7 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modif
             )
         }
     ) {
-        composable(BottomTabs.Feed.route) { Feed() }
+        composable(BottomTabs.Feed.route) { Feed(newsClicked) }
         composable(BottomTabs.Search.route) { Search() }
         composable(BottomTabs.Bookmarks.route) { Bookmarks() }
     }

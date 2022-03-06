@@ -20,10 +20,12 @@ import ny.times.reader.base.theme.TimesReaderTheme
 
 @Composable
 fun NewsListItem(
+    modifier: Modifier = Modifier,
     data: NewsUiEntity
 ) {
     Row(
         modifier = Modifier
+            .then(modifier)
             .wrapContentHeight()
             .fillMaxHeight()
             .padding(horizontal = 16.dp)
@@ -102,5 +104,5 @@ fun NewsListItemPreview() {
         "by John Doe",
         "2 days ago"
     )
-    NewsListItem(data)
+    NewsListItem(data = data)
 }
