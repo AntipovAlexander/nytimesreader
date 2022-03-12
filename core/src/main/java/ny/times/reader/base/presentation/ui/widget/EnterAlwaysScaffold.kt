@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
@@ -19,7 +20,7 @@ fun EnterAlwaysScaffold(
     scrollableContent: @Composable (modifier: Modifier) -> Unit
 ) {
     val enterAlwaysBarHeight = remember { mutableStateOf(0) }
-    val toolbarHeight = remember { mutableStateOf(0) }
+    val toolbarHeight = rememberSaveable { mutableStateOf(0) }
 
     val enterAlwaysBarOffset = remember { mutableStateOf(0f) }
     val contentOffset = remember { mutableStateOf(0f) }
@@ -30,7 +31,6 @@ fun EnterAlwaysScaffold(
                 val delta = available.y
                 val newEnterAlwaysBarOffset = enterAlwaysBarOffset.value + delta
                 val newContentOffset = contentOffset.value + delta
-
                 enterAlwaysBarOffset.value = newEnterAlwaysBarOffset.coerceIn(
                     0f,
                     toolbarHeight.value.toFloat()
