@@ -27,10 +27,14 @@ data class NewsList(val response: Response) : Dto<List<News>> {
         val snippet: String,
         @SerialName("lead_paragraph")
         val leadParagraph: String,
+        @SerialName("source")
+        val source: String,
         @SerialName("pub_date")
         val pubDate: String,
         val headline: Headline,
         val byline: Byline,
+        @SerialName("keywords")
+        val keywords: List<Keyword>,
         val multimedia: List<Multimedia>
     ) : Dto<News> {
         override fun convert(): News = News(
@@ -43,8 +47,10 @@ data class NewsList(val response: Response) : Dto<List<News>> {
             snippet = snippet,
             leadParagraph = leadParagraph,
             authorName = byline.original,
+            source = source,
             postedAt = pubDate,
-            url = url
+            url = url,
+            keywords = keywords.map { it.value }
         )
     }
 
@@ -56,6 +62,9 @@ data class NewsList(val response: Response) : Dto<List<News>> {
 
     @Serializable
     data class Multimedia(val url: String, val subType: String)
+
+    @Serializable
+    data class Keyword(val value: String)
 
     override fun convert(): List<News> {
         return this.response.docs.map { doc -> doc.convert() }

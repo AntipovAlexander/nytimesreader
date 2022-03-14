@@ -31,7 +31,7 @@ fun NewsContent(
     modifier: Modifier = Modifier,
     state: NewsContentState,
     paginationInProgress: Boolean = false,
-    itemClick: () -> Unit = {},
+    itemClick: (id: String) -> Unit = {},
     onRetryClicked: () -> Unit = {},
     lastVisibleItemChanged: (Int) -> Unit = {}
 ) {
@@ -39,7 +39,7 @@ fun NewsContent(
         when (state) {
             is NewsContentState.Progress -> CircularProgress()
             is NewsContentState.HasContent -> NewsList(
-                state.news,
+                state.newsUi() ?: emptyList(),
                 paginationInProgress,
                 lastVisibleItemChanged,
                 itemClick
@@ -59,13 +59,13 @@ fun NewsList(
     news: List<NewsUiEntity>,
     paginationInProgress: Boolean,
     lastVisibleItemChanged: (Int) -> Unit,
-    itemClick: () -> Unit
+    itemClick: (id: String) -> Unit
 ) {
     val listState = rememberLazyListState()
     LazyColumn(state = listState) {
         itemsIndexed(items = news, key = { _, item -> item.id }) { index, item ->
             NewsListItem(
-                modifier = Modifier.clickable { itemClick() },
+                modifier = Modifier.clickable { itemClick(item.id) },
                 data = item
             )
             val isLastElement = index + 1 == news.size

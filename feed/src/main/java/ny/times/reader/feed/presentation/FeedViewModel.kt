@@ -8,6 +8,7 @@ import ny.times.reader.base.data.entity.base.doOnError
 import ny.times.reader.base.data.entity.base.doOnSuccess
 import ny.times.reader.base.data.entity.base.map
 import ny.times.reader.base.data.pagination.PaginationDelegate
+import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.entity.mappers.toUiModel
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.entity.news.NewsUiEntity
@@ -45,15 +46,17 @@ class FeedViewModel @Inject constructor(
     }
 
     private val paginationDelegate: PaginationDelegate = PaginationDelegate(
-        datasetSize = { state.contentState.news()?.size ?: 0 },
+        datasetSize = { state.contentState.newsUi()?.size ?: 0 },
         isPaginationInProgress = { state.paginationInProgress },
         requestNextPage = { requestNextPage() }
     )
 
     private fun observeNews() = viewModelScope.launch {
         observeNewsUseCase(Unit)
-            .map { list -> list.map { it.toUiModel(dateFormat, socialTimeFormatter) } }
-            .collect(::onNewsLoaded)
+            .map { list -> list.map { it.toUiModel(dateFormat, socialTimeFormatter) } to list }
+            .collect {
+                onNewsLoaded(it.first, it.second)
+            }
     }
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
@@ -73,7 +76,7 @@ class FeedViewModel @Inject constructor(
             contentState = NewsContentState.ErrorState(viewAction.error)
         )
         is FeedViewActions.UpdateNews -> state.copy(
-            contentState = NewsContentState.HasContent(viewAction.news)
+            contentState = NewsContentState.HasContent(viewAction.uiNews, viewAction.domainNews)
         )
         is FeedViewActions.EmptyState -> state.copy(
             contentState = NewsContentState.EmptyState(viewAction.text)
@@ -101,15 +104,15 @@ class FeedViewModel @Inject constructor(
             .doOnError { sendAction(FeedViewActions.SetError(resourceProvider.getString(R.string.default_error_text))) }
     }
 
-    private fun onNewsLoaded(result: List<NewsUiEntity>) {
+    private fun onNewsLoaded(uiList: List<NewsUiEntity>, domainList: List<News>) {
         sendActions(
             FeedViewActions.UpdatePaginationState(false),
             FeedViewActions.UpdateNextPage(state.nextPage + 1)
         )
-        if (result.isEmpty())
+        if (uiList.isEmpty())
             sendAction(FeedViewActions.EmptyState(resourceProvider.getString(R.string.news_list_empty_text)))
         else
-            sendAction(FeedViewActions.UpdateNews(result))
+            sendAction(FeedViewActions.UpdateNews(uiList, domainList))
     }
 
     fun chipSelected(selectedChip: ChipContent) {
@@ -137,4 +140,6 @@ class FeedViewModel @Inject constructor(
     }
 
     fun retryClicked() = requestNewsFromStart(state.chips.first { it.isSelected }.text)
+
+    fun getById(id: String) = state.contentState.newsDomain()?.firstOrNull { it.id == id }
 }

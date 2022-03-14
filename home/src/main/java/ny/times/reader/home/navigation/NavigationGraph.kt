@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
+import ny.times.reader.base.domain.entity.News
 import ny.times.reader.bookmarks.Bookmarks
 import ny.times.reader.feed.presentation.Feed
 import ny.times.reader.search.presentation.Search
@@ -19,7 +20,7 @@ import ny.times.reader.search.presentation.Search
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavigationGraph(
-    newsClicked: () -> Unit,
+    newsClicked: (News) -> Unit,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {

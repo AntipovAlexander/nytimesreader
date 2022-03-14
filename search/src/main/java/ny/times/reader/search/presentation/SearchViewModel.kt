@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import ny.times.reader.base.data.entity.base.doOnError
 import ny.times.reader.base.data.entity.base.doOnSuccess
 import ny.times.reader.base.data.entity.base.map
+import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.entity.mappers.toUiModel
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.entity.news.NewsUiEntity
@@ -46,7 +47,10 @@ class SearchViewModel @Inject constructor(
             contentState = NewsContentState.ErrorState(viewAction.error)
         )
         is SearchViewActions.UpdateSearchResults -> state.copy(
-            contentState = NewsContentState.HasContent(viewAction.results)
+            contentState = NewsContentState.HasContent(
+                viewAction.uiResults,
+                viewAction.domainResults
+            )
         )
         is SearchViewActions.EmptyState -> state.copy(
             contentState = NewsContentState.EmptyState(text = viewAction.text)
@@ -77,24 +81,24 @@ class SearchViewModel @Inject constructor(
 
     private suspend fun performSearch(query: String) {
         if (query.isBlank()) {
-            onSearchResultsLoaded(emptyList())
+            onSearchResultsLoaded(emptyList(), emptyList())
             return
         }
         sendAction(SearchViewActions.StartLoading)
         searchNewsListUseCase(query)
-            .map { it.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) } }
-            .doOnSuccess(::onSearchResultsLoaded)
+            .map { it.map { news -> news.toUiModel(dateFormat, socialTimeFormatter) } to it }
+            .doOnSuccess { onSearchResultsLoaded(it.first, it.second) }
             .doOnError { sendAction(SearchViewActions.SetError(resourceProvider.getString(R.string.default_error_text))) }
     }
 
-    private fun onSearchResultsLoaded(result: List<NewsUiEntity>) {
-        if (result.isEmpty()) {
+    private fun onSearchResultsLoaded(uiResult: List<NewsUiEntity>, domainResult: List<News>) {
+        if (uiResult.isEmpty()) {
             val emptyText = if (state.searchQuery.isBlank())
                 resourceProvider.getString(R.string.empty_state_no_input)
             else
                 resourceProvider.getString(R.string.empty_state_no_result)
             sendAction(SearchViewActions.EmptyState(emptyText))
         } else
-            sendAction(SearchViewActions.UpdateSearchResults(result))
+            sendAction(SearchViewActions.UpdateSearchResults(uiResult, domainResult))
     }
 }
