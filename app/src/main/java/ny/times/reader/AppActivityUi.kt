@@ -41,8 +41,10 @@ fun AppActivityUi() {
             route = "$NEWS_DETAILS/{$NEWS_DETAILS_ARGUMENT}",
             arguments = listOf(navArgument(NEWS_DETAILS_ARGUMENT) { type = NewsDetailsNavType() })
         ) {
-            val example = it.arguments?.getParcelable<NewsDetailsData>(NEWS_DETAILS_ARGUMENT)
-            NewsDetails()
+            val details = it.arguments
+                ?.getParcelable<NewsDetailsData>(NEWS_DETAILS_ARGUMENT)
+                ?: return@composable
+            NewsDetails(details)
         }
     }
 }

@@ -1,5 +1,6 @@
 package ny.times.reader.feed.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,7 @@ import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.ChipGroup
 import ny.times.reader.base.presentation.ui.widget.EnterAlwaysScaffold
 import ny.times.reader.base.presentation.ui.widget.Toolbar
+import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.feed.R
 
 @Composable
@@ -29,7 +31,11 @@ fun Feed(
         },
         enterAlwaysBar = { scaffoldModifier ->
             ChipGroup(
-                modifier = scaffoldModifier.then(Modifier.padding(vertical = chipPadding)),
+                modifier = scaffoldModifier.then(
+                    Modifier
+                        .background(TimesReaderTheme.colors.white)
+                        .padding(vertical = chipPadding)
+                ),
                 chips = feedVm.state.chips,
                 onSelectedChanged = feedVm::chipSelected
             )

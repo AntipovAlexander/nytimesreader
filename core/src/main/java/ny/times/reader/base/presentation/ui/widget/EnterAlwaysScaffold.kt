@@ -39,7 +39,13 @@ fun EnterAlwaysScaffold(
                     0f,
                     toolbarHeight.value + enterAlwaysBarHeight.value.toFloat(),
                 )
-                return Offset.Zero
+                return when {
+                    enterAlwaysBarOffset.value > 0 && enterAlwaysBarOffset.value < enterAlwaysBarHeight.value -> Offset(
+                        x = 0f,
+                        y = available.y
+                    )
+                    else -> Offset.Zero
+                }
             }
         }
     }

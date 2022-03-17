@@ -1,5 +1,6 @@
 package ny.times.reader.search.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +12,7 @@ import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.EnterAlwaysScaffold
 import ny.times.reader.base.presentation.ui.widget.SearchBar
 import ny.times.reader.base.presentation.ui.widget.Toolbar
+import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.search.R
 
 @Composable
@@ -25,7 +27,11 @@ fun Search(searchVm: SearchViewModel = hiltViewModel()) {
         enterAlwaysBar = { scaffoldModifier ->
             SearchBar(
                 text = searchVm.state.searchQuery,
-                modifier = scaffoldModifier.then(Modifier.padding(all = 16.dp)),
+                modifier = scaffoldModifier.then(
+                    Modifier
+                        .background(TimesReaderTheme.colors.white)
+                        .padding(all = 16.dp)
+                ),
                 onTextChanged = searchVm::searchQueryChanged
             )
         },
