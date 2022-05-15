@@ -1,13 +1,11 @@
-package ny.times.reader.feed.presentation.ui
+package ny.times.reader.search.presentation.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.entity.news.NewsUiEntity
-import ny.times.reader.base.presentation.ui.widget.ChipContent
 
-private val chips = (0..10).map { ChipContent(it.toLong(), "Chip $it", it == 0) }
 private val domainNews = (0..10).map {
     News(
         id = it.toString(),
@@ -35,17 +33,13 @@ private val uiNews = (0..10).map {
 
 private val contentState = NewsContentState.HasContent(uiNews, domainNews)
 
-
 @Preview
 @Composable
-fun FeedPreview() {
-    FeedUi(
-        chips = chips,
+fun SearchUiPreview() {
+    SearchUi(
+        searchText = "query",
         contentState = contentState,
-        paginationInProgress = false,
-        newsClicked = {},
-        chipClicked = {},
-        lastVisibleItemChanged = {},
-        retryClicked = {}
+        onSearchChanged = {},
+        onRetryClick = {}
     )
 }

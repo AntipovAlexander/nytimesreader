@@ -12,18 +12,16 @@ class FeedFragment : BaseFragment() {
     private val feedViewModel by viewModels<FeedViewModel>()
 
     @Composable
-    override fun Content() {
-        FeedUi(
-            chips = feedViewModel.state.chips,
-            contentState = feedViewModel.state.contentState,
-            paginationInProgress = feedViewModel.state.paginationInProgress,
-            newsClicked = { id ->
-                val item = feedViewModel.getById(id) ?: return@FeedUi
-                // todo: navigation should be here
-            },
-            chipClicked = feedViewModel::chipSelected,
-            lastVisibleItemChanged = feedViewModel::lastVisibleItemChanged,
-            retryClicked = feedViewModel::retryClicked
-        )
-    }
+    override fun Content() = FeedUi(
+        chips = feedViewModel.state.chips,
+        contentState = feedViewModel.state.contentState,
+        paginationInProgress = feedViewModel.state.paginationInProgress,
+        newsClicked = { id ->
+            val item = feedViewModel.getById(id) ?: return@FeedUi
+            // todo: navigation should be here
+        },
+        chipClicked = feedViewModel::chipSelected,
+        lastVisibleItemChanged = feedViewModel::lastVisibleItemChanged,
+        retryClicked = feedViewModel::retryClicked
+    )
 }

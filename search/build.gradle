@@ -1,8 +1,14 @@
 apply from: rootProject.file('gradle/android/android-library.gradle')
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 dependencies {
     implementation implementation(project(':core'))
+    // Hilt
+    implementation(
+            deps.dagger_hilt.android,
+            deps.dagger_hilt.compose
+    )
     kapt deps.dagger_hilt.android_compiler
     kapt deps.dagger_hilt.androidx_compiler
 }

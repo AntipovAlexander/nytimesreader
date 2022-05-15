@@ -1,11 +1,10 @@
-package ny.times.reader.search.presentation
+package ny.times.reader.search.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.ui.news.NewsContent
@@ -16,7 +15,12 @@ import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.search.R
 
 @Composable
-fun Search() {
+fun SearchUi(
+    searchText: String,
+    contentState: NewsContentState,
+    onSearchChanged: (query: String) -> Unit,
+    onRetryClick: () -> Unit,
+) {
     EnterAlwaysScaffold(
         toolbar = { scaffoldModifier ->
             Toolbar(
@@ -26,32 +30,20 @@ fun Search() {
         },
         enterAlwaysBar = { scaffoldModifier ->
             SearchBar(
-                // todo
-                text = "test text",
-//                text = searchVm.state.searchQuery,
+                text = searchText,
                 modifier = scaffoldModifier.then(
                     Modifier
                         .background(TimesReaderTheme.colors.white)
                         .padding(all = 16.dp)
                 ),
-                onTextChanged = {}
-//                onTextChanged = searchVm::searchQueryChanged
+                onTextChanged = { query -> onSearchChanged(query) }
             )
         },
         scrollableContent = { scaffoldModifier ->
             NewsContent(
                 modifier = scaffoldModifier,
-                // todo
-                state = NewsContentState.Progress,
-//                state = searchVm.state.contentState,
-                onRetryClicked = {}
-//                onRetryClicked = searchVm::retrySearch
+                state = contentState,
+                onRetryClicked = { onRetryClick() }
             )
         })
-}
-
-@Preview
-@Composable
-fun SearchPreview() {
-    Search()
 }
