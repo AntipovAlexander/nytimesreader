@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.ChipContent
@@ -18,7 +17,15 @@ import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.feed.R
 
 @Composable
-fun Feed(newsClicked: (News) -> Unit) {
+fun Feed(
+    chips: List<ChipContent>,
+    contentState: NewsContentState,
+    paginationInProgress: Boolean,
+    newsClicked: (id: String) -> Unit,
+    chipClicked: (chip: ChipContent) -> Unit,
+    lastVisibleItemChanged: (position: Int) -> Unit,
+    retryClicked: () -> Unit
+) {
     val chipPadding = 8.dp
     EnterAlwaysScaffold(
         toolbar = { scaffoldModifier ->
@@ -34,30 +41,18 @@ fun Feed(newsClicked: (News) -> Unit) {
                         .background(TimesReaderTheme.colors.white)
                         .padding(vertical = chipPadding)
                 ),
-                // todo
-                chips = emptyList<ChipContent>(),
-//                chips = feedVm.state.chips,
-                onSelectedChanged = {}
-//                onSelectedChanged = feedVm::chipSelected
+                chips = chips,
+                onSelectedChanged = { chipClicked(it) }
             )
         },
         scrollableContent = { scaffoldModifier ->
             NewsContent(
-                itemClick = { id ->
-                    // todo
-//                    val newsItem = feedVm.getById(id) ?: return@NewsContent
-//                    newsClicked(newsItem)
-                },
+                itemClick = { id -> newsClicked(id) },
                 modifier = scaffoldModifier,
-                // todo
-                state = NewsContentState.Progress,
-//                state = feedVm.state.contentState,
-                onRetryClicked = {},
-//                onRetryClicked = feedVm::retryClicked,
-                paginationInProgress = false,
-//                paginationInProgress = feedVm.state.paginationInProgress,
-                lastVisibleItemChanged = {}
-//                lastVisibleItemChanged = feedVm::lastVisibleItemChanged
+                state = contentState,
+                onRetryClicked = { retryClicked() },
+                paginationInProgress = paginationInProgress,
+                lastVisibleItemChanged = { position -> lastVisibleItemChanged(position) }
             )
         }
     )
@@ -66,5 +61,5 @@ fun Feed(newsClicked: (News) -> Unit) {
 @Preview
 @Composable
 fun FeedPreview() {
-    Feed(newsClicked = {})
+//    Feed(newsClicked = {})
 }
