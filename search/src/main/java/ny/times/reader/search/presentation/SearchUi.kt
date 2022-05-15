@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.EnterAlwaysScaffold
 import ny.times.reader.base.presentation.ui.widget.SearchBar
@@ -16,7 +16,7 @@ import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.search.R
 
 @Composable
-fun Search(searchVm: SearchViewModel = hiltViewModel()) {
+fun Search() {
     EnterAlwaysScaffold(
         toolbar = { scaffoldModifier ->
             Toolbar(
@@ -26,20 +26,26 @@ fun Search(searchVm: SearchViewModel = hiltViewModel()) {
         },
         enterAlwaysBar = { scaffoldModifier ->
             SearchBar(
-                text = searchVm.state.searchQuery,
+                // todo
+                text = "test text",
+//                text = searchVm.state.searchQuery,
                 modifier = scaffoldModifier.then(
                     Modifier
                         .background(TimesReaderTheme.colors.white)
                         .padding(all = 16.dp)
                 ),
-                onTextChanged = searchVm::searchQueryChanged
+                onTextChanged = {}
+//                onTextChanged = searchVm::searchQueryChanged
             )
         },
         scrollableContent = { scaffoldModifier ->
             NewsContent(
                 modifier = scaffoldModifier,
-                state = searchVm.state.contentState,
-                onRetryClicked = searchVm::retrySearch
+                // todo
+                state = NewsContentState.Progress,
+//                state = searchVm.state.contentState,
+                onRetryClicked = {}
+//                onRetryClicked = searchVm::retrySearch
             )
         })
 }

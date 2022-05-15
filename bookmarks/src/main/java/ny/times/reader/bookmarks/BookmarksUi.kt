@@ -7,7 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import ny.times.reader.base.presentation.ui.widget.Toolbar
 
 @Composable
-fun Bookmarks() {
+fun BookmarksUi() {
     Column {
         Toolbar(text = stringResource(R.string.bookmarks))
     }
@@ -16,5 +16,5 @@ fun Bookmarks() {
 @Preview
 @Composable
 fun SearchPreview() {
-    Bookmarks()
+    BookmarksUi()
 }
