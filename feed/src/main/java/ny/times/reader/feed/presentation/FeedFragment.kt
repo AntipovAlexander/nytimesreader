@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ny.times.reader.base.presentation.BaseFragment
+import ny.times.reader.feed.presentation.ui.FeedUi
 
 @AndroidEntryPoint
 class FeedFragment : BaseFragment() {
@@ -12,12 +13,12 @@ class FeedFragment : BaseFragment() {
 
     @Composable
     override fun Content() {
-        Feed(
+        FeedUi(
             chips = feedViewModel.state.chips,
             contentState = feedViewModel.state.contentState,
             paginationInProgress = feedViewModel.state.paginationInProgress,
             newsClicked = { id ->
-                val item = feedViewModel.getById(id) ?: return@Feed
+                val item = feedViewModel.getById(id) ?: return@FeedUi
                 // todo: navigation should be here
             },
             chipClicked = feedViewModel::chipSelected,

@@ -1,11 +1,10 @@
-package ny.times.reader.feed.presentation
+package ny.times.reader.feed.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ny.times.reader.base.presentation.entity.news.NewsContentState
 import ny.times.reader.base.presentation.ui.news.NewsContent
@@ -17,7 +16,7 @@ import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.feed.R
 
 @Composable
-fun Feed(
+fun FeedUi(
     chips: List<ChipContent>,
     contentState: NewsContentState,
     paginationInProgress: Boolean,
@@ -56,10 +55,4 @@ fun Feed(
             )
         }
     )
-}
-
-@Preview
-@Composable
-fun FeedPreview() {
-//    Feed(newsClicked = {})
 }
