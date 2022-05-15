@@ -6,7 +6,5 @@ import ny.times.reader.base.presentation.BaseFragment
 class BookmarksFragment : BaseFragment() {
 
     @Composable
-    override fun Content() {
-        BookmarksUi()
-    }
+    override fun Content() = BookmarksUi()
 }

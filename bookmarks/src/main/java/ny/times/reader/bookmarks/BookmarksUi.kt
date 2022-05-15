@@ -15,6 +15,6 @@ fun BookmarksUi() {
 
 @Preview
 @Composable
-fun SearchPreview() {
+fun BookmarksPreview() {
     BookmarksUi()
 }
