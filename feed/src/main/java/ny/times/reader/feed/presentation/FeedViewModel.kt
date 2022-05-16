@@ -22,12 +22,14 @@ import ny.times.reader.feed.domain.use_case.GetTopicsUseCase
 import ny.times.reader.feed.domain.use_case.ObserveNewsUseCase
 import ny.times.reader.feed.domain.use_case.RequestNewsUseCase
 import ny.times.reader.feed.presentation.data.toUiModel
+import ny.times.reader.navigation.FeedNavigator
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
+    private val feedNavigator: FeedNavigator,
     private val getTopicsUseCase: GetTopicsUseCase,
     private val requestNewsUseCase: RequestNewsUseCase,
     private val observeNewsUseCase: ObserveNewsUseCase,
@@ -54,9 +56,7 @@ class FeedViewModel @Inject constructor(
     private fun observeNews() = viewModelScope.launch {
         observeNewsUseCase(Unit)
             .map { list -> list.map { it.toUiModel(dateFormat, socialTimeFormatter) } to list }
-            .collect {
-                onNewsLoaded(it.first, it.second)
-            }
+            .collect { onNewsLoaded(it.first, it.second) }
     }
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {
@@ -115,6 +115,19 @@ class FeedViewModel @Inject constructor(
             sendAction(FeedViewActions.UpdateNews(uiList, domainList))
     }
 
+    fun newsClicked(id: String) {
+        val newsDetails = state.contentState.newsDomain()?.firstOrNull { it.id == id } ?: return
+        feedNavigator.goToNewsDetails(
+            headline = newsDetails.title,
+            abstract = newsDetails.snippet,
+            leadParagraph = newsDetails.leadParagraph,
+            image = newsDetails.imageUrl,
+            sourceName = newsDetails.source,
+            sourceUrl = newsDetails.url,
+            tags = newsDetails.keywords
+        )
+    }
+
     fun chipSelected(selectedChip: ChipContent) {
         val chips = state.chips
         val oldSelected = chips.indexOfFirst { it.isSelected }
@@ -140,6 +153,4 @@ class FeedViewModel @Inject constructor(
     }
 
     fun retryClicked() = requestNewsFromStart(state.chips.first { it.isSelected }.text)
-
-    fun getById(id: String) = state.contentState.newsDomain()?.firstOrNull { it.id == id }
 }

@@ -18,10 +18,10 @@ import coil.compose.rememberImagePainter
 import ny.times.reader.base.R
 import ny.times.reader.base.presentation.ui.widget.CollapsingToolbarScaffold
 import ny.times.reader.base.theme.TimesReaderTheme
-import ny.times.reader.news_details.presentation.argument.NewsDetailsData
+import ny.times.reader.news_details.presentation.argument.NewsDetailsUiModel
 
 @Composable
-fun NewsDetails(details: NewsDetailsData) {
+fun NewsDetails(details: NewsDetailsUiModel) {
     CollapsingToolbarScaffold(
         title = { modifier, color, fontSize ->
             Text(
@@ -85,7 +85,7 @@ fun NewsDetails(details: NewsDetailsData) {
     )
 }
 
-fun generateByLine(details: NewsDetailsData): String {
+fun generateByLine(details: NewsDetailsUiModel): String {
     val byline = "By: ${details.sourceName}, "
     val tags = "tags: " + details.tags.joinToString(separator = ", ")
     return byline + tags

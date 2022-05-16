@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class NewsDetailsData(
+data class NewsDetailsUiModel(
     val headline: String,
     val abstract: String,
     val leadParagraph: String,
@@ -14,4 +14,8 @@ data class NewsDetailsData(
     val sourceName: String,
     val sourceUrl: String,
     val tags: List<String>
-) : Parcelable
+) : Parcelable {
+    companion object {
+        val EMPTY = NewsDetailsUiModel("", "", "", "", "", "", emptyList())
+    }
+}

@@ -4,7 +4,10 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'dagger.hilt.android.plugin'
 
 dependencies {
-    implementation implementation(project(':core'))
+    implementation(
+            project(':core'),
+            project(":navigation")
+    )
 
     // Hilt
     implementation(

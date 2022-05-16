@@ -16,10 +16,7 @@ class FeedFragment : BaseFragment() {
         chips = feedViewModel.state.chips,
         contentState = feedViewModel.state.contentState,
         paginationInProgress = feedViewModel.state.paginationInProgress,
-        newsClicked = { id ->
-            val item = feedViewModel.getById(id) ?: return@FeedUi
-            // todo: navigation should be here
-        },
+        newsClicked = feedViewModel::newsClicked,
         chipClicked = feedViewModel::chipSelected,
         lastVisibleItemChanged = feedViewModel::lastVisibleItemChanged,
         retryClicked = feedViewModel::retryClicked
