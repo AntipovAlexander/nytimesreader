@@ -13,6 +13,8 @@ dependencies {
     implementation(
             project(':core'),
             project(':home'),
+            project(':routing'),
+            project(':navigation'),
             project(':news_details')
     )
 
@@ -32,12 +34,6 @@ dependencies {
             deps.retrofit.runtime,
             deps.retrofit.coroutines,
             deps.retrofit.kotlin_serialization,
-    )
-
-    // Hilt
-    implementation(
-            deps.dagger_hilt.android,
-            deps.dagger_hilt.android
     )
 
     debugImplementation(deps.chucker.library)

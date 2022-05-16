@@ -20,5 +20,7 @@ abstract class BaseViewModel<ViewState : BaseViewState>(initialState: ViewState)
         viewModelScope.launch { state = onReduceState(action) }
     }
 
+    open fun onBackPressed() {}
+
 }
 

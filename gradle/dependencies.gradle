@@ -148,3 +148,10 @@ deps.network = [
         okhttp             : "com.squareup.okhttp3:okhttp:$versions.okhttp",
         logging_interceptor: "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
 ]
+
+// Cicerone
+versions.cicerone = "7.0"
+
+deps.navigation = [
+        cicerone: "com.github.terrakok:cicerone:$versions.cicerone"
+]

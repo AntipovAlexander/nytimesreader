@@ -24,4 +24,6 @@ abstract class BaseFragment : Fragment() {
     @Composable
     abstract fun Content()
 
+    open fun onBackPressed() {}
+
 }
