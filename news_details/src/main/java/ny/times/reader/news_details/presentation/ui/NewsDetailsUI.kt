@@ -21,7 +21,10 @@ import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
 
 @Composable
-fun NewsDetailsUi(details: NewsDetailsUiModel) {
+fun NewsDetailsUi(
+    details: NewsDetailsUiModel,
+    onBackPressed: () -> Unit
+) {
     CollapsingToolbarScaffold(
         title = { modifier, color, fontSize ->
             Text(
@@ -47,6 +50,7 @@ fun NewsDetailsUi(details: NewsDetailsUiModel) {
                 contentDescription = null
             )
         },
+        onBackPressed = { onBackPressed() },
         content = {
             Column(
                 modifier = Modifier

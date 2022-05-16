@@ -16,5 +16,8 @@ fun NewsDetailsUiPreview() {
         sourceUrl = "",
         tags = listOf("tag1", "tag2", "tag3", "tag4")
     )
-    NewsDetailsUi(newsDetails)
+    NewsDetailsUi(
+        details = newsDetails,
+        onBackPressed = {}
+    )
 }

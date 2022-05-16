@@ -4,14 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ny.times.reader.navigation.ExitNavigator
-import ny.times.reader.navigation.FeedNavigator
-import ny.times.reader.navigation.HomeNavigator
-import ny.times.reader.navigation.HostNavigator
-import ny.times.reader.routing.implementations.ExitCoordinator
-import ny.times.reader.routing.implementations.FeedCoordinator
-import ny.times.reader.routing.implementations.HomeCoordinator
-import ny.times.reader.routing.implementations.HostCoordinator
+import ny.times.reader.navigation.*
+import ny.times.reader.routing.implementations.*
 import javax.inject.Singleton
 
 @Module
@@ -33,5 +27,9 @@ interface RoutingModule {
     @Binds
     @Singleton
     fun provideHomeCoordinator(homeCoordinator: HomeCoordinator): HomeNavigator
+
+    @Binds
+    @Singleton
+    fun provideNewsDetailsCoordinator(newsDetailsCoordinator: NewsDetailsCoordinator): NewsDetailsNavigator
 
 }

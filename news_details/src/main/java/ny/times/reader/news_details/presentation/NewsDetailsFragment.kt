@@ -24,5 +24,10 @@ class NewsDetailsFragment : BaseFragment() {
     private val homeViewModel by viewModels<NewsDetailsViewModel>()
 
     @Composable
-    override fun Content() = NewsDetailsUi(homeViewModel.state.details)
+    override fun Content() = NewsDetailsUi(
+        details = homeViewModel.state.details,
+        onBackPressed = homeViewModel::onBackPressed
+    )
+
+    override fun onBackPressed() = homeViewModel.onBackPressed()
 }
