@@ -1,4 +1,4 @@
-package ny.times.reader.news_details.presentation
+package ny.times.reader.news_details.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
 
 @Composable
-fun NewsDetails(details: NewsDetailsUiModel) {
+fun NewsDetailsUi(details: NewsDetailsUiModel) {
     CollapsingToolbarScaffold(
         title = { modifier, color, fontSize ->
             Text(

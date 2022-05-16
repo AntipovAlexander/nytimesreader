@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ny.times.reader.base.presentation.BaseFragment
 import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
+import ny.times.reader.news_details.presentation.ui.NewsDetailsUi
 
 @AndroidEntryPoint
 class NewsDetailsFragment : BaseFragment() {
@@ -23,5 +24,5 @@ class NewsDetailsFragment : BaseFragment() {
     private val homeViewModel by viewModels<NewsDetailsViewModel>()
 
     @Composable
-    override fun Content() = NewsDetails(homeViewModel.state.details)
+    override fun Content() = NewsDetailsUi(homeViewModel.state.details)
 }
