@@ -4,7 +4,7 @@ import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import ny.times.reader.navigation.FeedNavigator
 import ny.times.reader.news_details.presentation.NewsDetailsFragment
-import ny.times.reader.news_details.presentation.argument.NewsDetailsUiModel
+import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
 import javax.inject.Inject
 
 class FeedCoordinator @Inject constructor(private val router: Router) : FeedNavigator {

@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ny.times.reader.base.presentation.BaseFragment
-import ny.times.reader.news_details.presentation.argument.NewsDetailsUiModel
+import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
 
 @AndroidEntryPoint
 class NewsDetailsFragment : BaseFragment() {

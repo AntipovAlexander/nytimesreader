@@ -1,4 +1,4 @@
-package ny.times.reader.news_details.presentation.argument
+package ny.times.reader.news_details.presentation.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

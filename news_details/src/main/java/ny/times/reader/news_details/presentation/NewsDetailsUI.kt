@@ -18,7 +18,7 @@ import coil.compose.rememberImagePainter
 import ny.times.reader.base.R
 import ny.times.reader.base.presentation.ui.widget.CollapsingToolbarScaffold
 import ny.times.reader.base.theme.TimesReaderTheme
-import ny.times.reader.news_details.presentation.argument.NewsDetailsUiModel
+import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
 
 @Composable
 fun NewsDetails(details: NewsDetailsUiModel) {

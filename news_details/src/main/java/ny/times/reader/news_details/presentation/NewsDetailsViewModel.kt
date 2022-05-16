@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
 import ny.times.reader.news_details.presentation.NewsDetailsFragment.Companion.UI_MODEL
-import ny.times.reader.news_details.presentation.argument.NewsDetailsUiModel
+import ny.times.reader.news_details.presentation.entity.NewsDetailsUiModel
 import javax.inject.Inject
 
 @HiltViewModel
