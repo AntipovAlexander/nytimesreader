@@ -10,9 +10,9 @@ import androidx.navigation.navArgument
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ny.times.reader.home.ui.Home
-import ny.times.reader.news_details.presentation.NewsDetails
 import ny.times.reader.news_details.presentation.argument.NewsDetailsData
 import ny.times.reader.news_details.presentation.argument.NewsDetailsNavType
+import ny.times.reader.news_details.presentation.ui.NewsDetailsUi
 
 private const val HOME = "home"
 private const val NEWS_DETAILS_ARGUMENT = "argument"
@@ -44,7 +44,15 @@ fun AppActivityUi() {
             val details = it.arguments
                 ?.getParcelable<NewsDetailsData>(NEWS_DETAILS_ARGUMENT)
                 ?: return@composable
-            NewsDetails(details)
+            NewsDetailsUi(
+                details = details,
+                continueReadingClicked = {
+                    // todo:
+                },
+                backPressedClick = {
+                    // todo:
+                }
+            )
         }
     }
 }

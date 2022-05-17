@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="continue_reading">Continue reading on source …</string>
+    <string name="byline">By: %1$s, tags: %2$s</string>
+</resources>

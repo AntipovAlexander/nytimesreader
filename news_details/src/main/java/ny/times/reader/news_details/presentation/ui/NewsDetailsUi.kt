@@ -1,4 +1,4 @@
-package ny.times.reader.news_details.presentation
+package ny.times.reader.news_details.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -12,16 +12,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import ny.times.reader.base.R
 import ny.times.reader.base.presentation.ui.widget.CollapsingToolbarScaffold
 import ny.times.reader.base.theme.TimesReaderTheme
+import ny.times.reader.news_details.R
 import ny.times.reader.news_details.presentation.argument.NewsDetailsData
 
 @Composable
-fun NewsDetails(details: NewsDetailsData) {
+fun NewsDetailsUi(
+    details: NewsDetailsData,
+    continueReadingClicked: (url: String) -> Unit,
+    backPressedClick: () -> Unit
+) {
     CollapsingToolbarScaffold(
         title = { modifier, color, fontSize ->
             Text(
@@ -60,7 +66,11 @@ fun NewsDetails(details: NewsDetailsData) {
                 )
                 Text(
                     modifier = Modifier.padding(vertical = 8.dp),
-                    text = generateByLine(details),
+                    text = stringResource(
+                        id = R.string.byline,
+                        details.sourceName,
+                        details.tags.joinToString(separator = ", ")
+                    ),
                     style = TimesReaderTheme.typography.H3Regular,
                     color = TimesReaderTheme.colors.grey
                 )
@@ -69,13 +79,11 @@ fun NewsDetails(details: NewsDetailsData) {
                     style = TimesReaderTheme.typography.H1Regular
                 )
                 TextButton(
-                    onClick = {
-                        // todo
-                    },
+                    onClick = { continueReadingClicked(details.sourceUrl) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "Continue reading on source ...",
+                        text = stringResource(R.string.continue_reading),
                         color = TimesReaderTheme.colors.black,
                         style = TimesReaderTheme.typography.H1Regular
                     )
@@ -85,8 +93,12 @@ fun NewsDetails(details: NewsDetailsData) {
     )
 }
 
-fun generateByLine(details: NewsDetailsData): String {
-    val byline = "By: ${details.sourceName}, "
-    val tags = "tags: " + details.tags.joinToString(separator = ", ")
-    return byline + tags
+@Composable
+@Preview
+private fun Preview() {
+    NewsDetailsUi(
+        details = PreviewData.get(),
+        continueReadingClicked = {},
+        backPressedClick = {},
+    )
 }
