@@ -101,4 +101,6 @@ class SearchViewModel @Inject constructor(
         } else
             sendAction(SearchViewActions.UpdateSearchResults(uiResult, domainResult))
     }
+
+    fun getById(id: String) = state.contentState.newsDomain()?.firstOrNull { it.id == id }
 }

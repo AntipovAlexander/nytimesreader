@@ -59,7 +59,7 @@ fun NavigationGraph(
         }
     ) {
         composable(BottomTabs.Feed.route) { Feed(newsClicked) }
-        composable(BottomTabs.Search.route) { Search() }
+        composable(BottomTabs.Search.route) { Search(newsClicked) }
         composable(BottomTabs.Bookmarks.route) { Bookmarks() }
     }
 }
