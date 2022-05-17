@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import ny.times.reader.base.domain.entity.News
 import ny.times.reader.home.navigation.NavigationGraph
@@ -26,9 +25,4 @@ fun Home(onNewsClicked: (News) -> Unit) {
                 .fillMaxHeight()
         )
     }
-}
-
-@Preview
-@Composable
-fun HomePreview() {
 }
