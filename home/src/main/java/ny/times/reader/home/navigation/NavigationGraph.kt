@@ -15,7 +15,7 @@ import com.google.accompanist.navigation.animation.composable
 import ny.times.reader.base.domain.entity.News
 import ny.times.reader.bookmarks.Bookmarks
 import ny.times.reader.feed.presentation.Feed
-import ny.times.reader.search.presentation.Search
+import ny.times.reader.search.presentation.ui.SearchUi
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -59,7 +59,7 @@ fun NavigationGraph(
         }
     ) {
         composable(BottomTabs.Feed.route) { Feed(newsClicked) }
-        composable(BottomTabs.Search.route) { Search(newsClicked) }
+        composable(BottomTabs.Search.route) { SearchUi(newsClicked) }
         composable(BottomTabs.Bookmarks.route) { Bookmarks() }
     }
 }
