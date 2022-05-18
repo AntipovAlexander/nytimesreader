@@ -16,7 +16,7 @@ dependencies {
     // Hilt
     api(
             deps.dagger_hilt.android,
-            deps.dagger_hilt.compose
+            deps.dagger_hilt.navigation_compose
     )
     kapt deps.dagger_hilt.android_compiler
     kapt deps.dagger_hilt.androidx_compiler

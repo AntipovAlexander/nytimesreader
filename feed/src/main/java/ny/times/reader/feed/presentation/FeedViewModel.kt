@@ -54,9 +54,7 @@ class FeedViewModel @Inject constructor(
     private fun observeNews() = viewModelScope.launch {
         observeNewsUseCase(Unit)
             .map { list -> list.map { it.toUiModel(dateFormat, socialTimeFormatter) } to list }
-            .collect {
-                onNewsLoaded(it.first, it.second)
-            }
+            .collect { onNewsLoaded(it.first, it.second) }
     }
 
     override fun onReduceState(viewAction: BaseViewAction): FeedViewState = when (viewAction) {

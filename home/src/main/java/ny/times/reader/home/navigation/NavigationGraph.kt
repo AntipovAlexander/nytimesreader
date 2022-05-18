@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -58,8 +59,18 @@ fun NavigationGraph(
             )
         }
     ) {
-        composable(BottomTabs.Feed.route) { FeedUi(newsClicked) }
-        composable(BottomTabs.Search.route) { SearchUi(newsClicked) }
+        composable(BottomTabs.Feed.route) {
+            FeedUi(
+                newsClicked = newsClicked,
+                feedVm = hiltViewModel()
+            )
+        }
+        composable(BottomTabs.Search.route) {
+            SearchUi(
+                newsClicked = newsClicked,
+                searchVm = hiltViewModel()
+            )
+        }
         composable(BottomTabs.Bookmarks.route) { Bookmarks() }
     }
 }

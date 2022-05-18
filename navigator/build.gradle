@@ -1,0 +1,10 @@
+apply from: rootProject.file('gradle/android/android-library.gradle')
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'kotlin-parcelize'
+
+dependencies {
+    implementation(project(':core'))
+    kapt deps.dagger_hilt.android_compiler
+    kapt deps.dagger_hilt.androidx_compiler
+}
