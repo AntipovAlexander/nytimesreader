@@ -16,6 +16,7 @@ import ny.times.reader.base.presentation.ui.widget.EnterAlwaysScaffold
 import ny.times.reader.base.presentation.ui.widget.Toolbar
 import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.feed.R
+import ny.times.reader.feed.presentation.ui.PreviewData
 
 @Composable
 fun FeedUi(
@@ -74,6 +75,11 @@ internal fun Feed(
 @Preview
 @Composable
 fun FeedPreview() {
-    // todo
-    FeedUi(newsClicked = {})
+    Feed(
+        feedState = PreviewData.get(),
+        onChipSelected = {},
+        onItemClick = {},
+        onRetryClick = {},
+        onLastVisibleItemChanged = {}
+    )
 }
