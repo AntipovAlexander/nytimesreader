@@ -107,7 +107,7 @@ deps.dagger_hilt = [
 ]
 
 // Chucker
-versions.chucker_version = "3.4.0"
+versions.chucker_version = "3.5.2"
 deps.chucker = [
         library      : "com.github.chuckerteam.chucker:library:$versions.chucker_version",
         library_no_op: "com.github.chuckerteam.chucker:library-no-op:$versions.chucker_version"
