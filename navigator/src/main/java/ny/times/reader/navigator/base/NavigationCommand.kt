@@ -1,8 +1,8 @@
-package ny.times.reader.navigator
+package ny.times.reader.navigator.base
 
 import androidx.navigation.NamedNavArgument
 
 interface NavigationCommand {
     val arguments: List<NamedNavArgument>
-    val destination: String
+    val route: String
 }

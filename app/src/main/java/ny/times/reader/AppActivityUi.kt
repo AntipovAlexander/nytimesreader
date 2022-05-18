@@ -3,13 +3,14 @@ package ny.times.reader
 import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import ny.times.reader.home.ui.Home
+import ny.times.reader.home.presentation.ui.Home
 import ny.times.reader.news_details.presentation.argument.NewsDetailsData
 import ny.times.reader.news_details.presentation.argument.NewsDetailsNavType
 import ny.times.reader.news_details.presentation.ui.NewsDetailsUi
@@ -23,7 +24,7 @@ fun AppActivityUi() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = HOME) {
         composable(HOME) {
-            Home {
+            Home(hiltViewModel()) {
                 val testParam = NewsDetailsData(
                     it.title,
                     it.snippet,

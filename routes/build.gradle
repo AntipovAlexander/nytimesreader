@@ -4,10 +4,7 @@ apply plugin: 'kotlin-kapt'
 dependencies {
     implementation(
             project(':core'),
-            project(":navigator"),
-            project(":feed"),
-            project(":search"),
-            project(":bookmarks")
+            project(':navigator')
     )
     kapt deps.dagger_hilt.android_compiler
     kapt deps.dagger_hilt.androidx_compiler
