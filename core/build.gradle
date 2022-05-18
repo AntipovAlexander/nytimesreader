@@ -16,7 +16,6 @@ dependencies {
     // Hilt
     api(
             deps.dagger_hilt.android,
-            deps.dagger_hilt.android,
             deps.dagger_hilt.compose
     )
     kapt deps.dagger_hilt.android_compiler
@@ -63,14 +62,10 @@ dependencies {
     )
 
     // Coil
-    api(
-            deps.coil.compose_loader
-    )
+    api(deps.coil.compose_loader)
 
     // Retrofit
-    api(
-            deps.retrofit.runtime
-    )
+    api(deps.retrofit.runtime)
 
     // Debug
     api(deps.debugging.timber)

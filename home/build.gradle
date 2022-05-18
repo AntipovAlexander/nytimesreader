@@ -7,5 +7,4 @@ dependencies {
             project(":search"),
             project(":bookmarks")
     )
-
 }

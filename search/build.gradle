@@ -2,7 +2,7 @@ apply from: rootProject.file('gradle/android/android-library.gradle')
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    implementation implementation(project(':core'))
+    implementation(project(':core'))
     kapt deps.dagger_hilt.android_compiler
     kapt deps.dagger_hilt.androidx_compiler
 }

@@ -3,7 +3,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
 
 dependencies {
-    implementation implementation(project(':core'))
+    implementation(project(':core'))
     kapt deps.dagger_hilt.android_compiler
     kapt deps.dagger_hilt.androidx_compiler
 }
