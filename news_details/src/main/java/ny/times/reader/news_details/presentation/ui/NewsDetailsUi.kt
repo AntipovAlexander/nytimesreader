@@ -26,7 +26,7 @@ import ny.times.reader.news_details.presentation.argument.NewsDetailsData
 fun NewsDetailsUi(
     details: NewsDetailsData,
     continueReadingClicked: (url: String) -> Unit,
-    backPressedClick: () -> Unit
+    onBackPressed: () -> Unit
 ) {
     CollapsingToolbarScaffold(
         title = { modifier, color, fontSize ->
@@ -53,6 +53,7 @@ fun NewsDetailsUi(
                 contentDescription = null
             )
         },
+        onBackPressed = onBackPressed,
         content = {
             Column(
                 modifier = Modifier
@@ -99,6 +100,6 @@ private fun Preview() {
     NewsDetailsUi(
         details = PreviewData.get(),
         continueReadingClicked = {},
-        backPressedClick = {},
+        onBackPressed = {},
     )
 }

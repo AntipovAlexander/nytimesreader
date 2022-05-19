@@ -16,20 +16,20 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import ny.times.reader.base.domain.entity.News
 import ny.times.reader.home.navigation.NavigationGraph
-import ny.times.reader.home.presentation.HomeViewModel
-import ny.times.reader.navigator.home.HomeRoutes
+import ny.times.reader.home.presentation.HomeTabsViewModel
+import ny.times.reader.navigator.home_tabs.HomeTabsRoutes
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Home(
-    homeViewModel: HomeViewModel,
+    homeViewModel: HomeTabsViewModel,
     onNewsClicked: (News) -> Unit
 ) {
     val homeNavController = rememberAnimatedNavController()
 
     LaunchedEffect(homeViewModel) {
         homeViewModel
-            .routes
+            .tabsRoutes
             .onEach { route -> navigate(homeNavController, route) }
             .collect()
     }
@@ -55,8 +55,8 @@ fun Home(
 
 }
 
-private fun navigate(navController: NavController, homeRoute: HomeRoutes) {
-    navController.navigate(homeRoute.route) {
+private fun navigate(navController: NavController, homeTabsRoute: HomeTabsRoutes) {
+    navController.navigate(homeTabsRoute.route) {
         // Pop up to the start destination of the graph to
         // avoid building up a large stack of destinations
         // on the back stack as users select items

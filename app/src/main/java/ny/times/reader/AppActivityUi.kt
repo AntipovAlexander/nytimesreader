@@ -50,8 +50,8 @@ fun AppActivityUi() {
                 continueReadingClicked = {
                     // todo:
                 },
-                backPressedClick = {
-                    // todo:
+                onBackPressed = {
+                    navController.popBackStack()
                 }
             )
         }

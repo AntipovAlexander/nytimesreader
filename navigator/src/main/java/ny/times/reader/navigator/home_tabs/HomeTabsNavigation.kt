@@ -1,6 +1,6 @@
-package ny.times.reader.navigator.home
+package ny.times.reader.navigator.home_tabs
 
-interface HomeNavigation {
+interface HomeTabsNavigation {
     fun switchToFeed()
     fun switchToSearch()
     fun switchToBookmarks()

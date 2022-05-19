@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ny.times.reader.navigator.home.HomeNavigation
-import ny.times.reader.routes.home.HomeNavigationImpl
+import ny.times.reader.navigator.home_tabs.HomeTabsNavigation
+import ny.times.reader.routes.home.HomeTabsNavigationImpl
 import javax.inject.Singleton
 
 @Module
@@ -14,6 +14,6 @@ interface NavigationModule {
 
     @Binds
     @Singleton
-    fun provideHomeNavigation(homeNavigationImpl: HomeNavigationImpl): HomeNavigation
+    fun provideHomeNavigation(homeTabsTabsNavigationImpl: HomeTabsNavigationImpl): HomeTabsNavigation
 
 }

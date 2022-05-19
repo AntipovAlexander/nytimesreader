@@ -42,6 +42,7 @@ val TitleOffsetExpanded = 16.dp
 fun CollapsingToolbarScaffold(
     title: @Composable (modifier: Modifier, color: Color, fontSize: TextUnit) -> Unit,
     image: @Composable (modifier: Modifier) -> Unit,
+    onBackPressed: () -> Unit,
     content: @Composable () -> Unit
 ) {
     val slideOffsetInPx = with(LocalDensity.current) {
@@ -98,7 +99,7 @@ fun CollapsingToolbarScaffold(
                     .fillMaxSize()
                     .alpha(calculate(collapsedRatio.value, 0f, 1f))
             )
-            IconButton(onClick = { }) {
+            IconButton(onClick = onBackPressed) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Back",
