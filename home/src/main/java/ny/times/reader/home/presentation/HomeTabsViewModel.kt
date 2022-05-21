@@ -3,6 +3,7 @@ package ny.times.reader.home.presentation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
+import ny.times.reader.base.presentation.view_model.BaseViewState
 import ny.times.reader.home.navigation.BottomTabs
 import ny.times.reader.navigator.home_tabs.HomeTabsNavigation
 import ny.times.reader.navigator.home_tabs.HomeTabsRouter
@@ -12,12 +13,10 @@ import javax.inject.Inject
 class HomeTabsViewModel @Inject constructor(
     private val homeTabsNavigation: HomeTabsNavigation,
     private val homeTabsRouter: HomeTabsRouter
-) : BaseViewModel<HomeViewState>(HomeViewState.INITIAL), HomeTabsRouter by homeTabsRouter {
+) : BaseViewModel<HomeTabsViewModel.HomeViewState>(HomeViewState),
+    HomeTabsRouter by homeTabsRouter {
 
-    override fun onReduceState(viewAction: BaseViewAction): HomeViewState = when (viewAction) {
-        is HomeViewActions.ChangeCurrentRoute -> state.copy(currentRoute = viewAction.route)
-        else -> state
-    }
+    override fun onReduceState(viewAction: BaseViewAction): HomeViewState = state
 
     fun onTabSwitched(tab: BottomTabs) {
         when (tab) {
@@ -26,4 +25,6 @@ class HomeTabsViewModel @Inject constructor(
             BottomTabs.Bookmarks -> homeTabsNavigation.switchToBookmarks()
         }
     }
+
+    object HomeViewState : BaseViewState
 }

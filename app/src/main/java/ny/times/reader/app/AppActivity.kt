@@ -1,4 +1,4 @@
-package ny.times.reader
+package ny.times.reader.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ny.times.reader.base.theme.TimesReaderTheme
 
@@ -21,7 +22,7 @@ class AppActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxHeight()
                         .fillMaxWidth()
-                ) { AppActivityUi() }
+                ) { AppActivityUi(hiltViewModel()) }
             }
         }
     }

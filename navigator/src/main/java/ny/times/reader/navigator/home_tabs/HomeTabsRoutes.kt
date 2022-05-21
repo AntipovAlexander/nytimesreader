@@ -3,7 +3,7 @@ package ny.times.reader.navigator.home_tabs
 import androidx.navigation.NamedNavArgument
 import ny.times.reader.navigator.base.NavigationCommand
 
-sealed class HomeTabsRoutes : NavigationCommand {
+sealed class HomeTabsRoutes : NavigationCommand() {
 
     object Feed : HomeTabsRoutes() {
         override val arguments = emptyList<NamedNavArgument>()

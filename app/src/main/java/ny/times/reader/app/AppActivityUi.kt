@@ -1,29 +1,39 @@
-package ny.times.reader
+package ny.times.reader.app
 
 import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ny.times.reader.home.presentation.ui.Home
+import ny.times.reader.navigator.app.AppRoutes
 import ny.times.reader.news_details.presentation.argument.NewsDetailsData
 import ny.times.reader.news_details.presentation.argument.NewsDetailsNavType
 import ny.times.reader.news_details.presentation.ui.NewsDetailsUi
 
-private const val HOME = "home"
 private const val NEWS_DETAILS_ARGUMENT = "argument"
 private const val NEWS_DETAILS = "news_details"
 
 @Composable
-fun AppActivityUi() {
+fun AppActivityUi(appViewModel: AppViewModel) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = HOME) {
-        composable(HOME) {
+    LaunchedEffect(appViewModel) {
+        appViewModel
+            .appRoutes
+            .onEach { route -> navigate(navController, route) }
+            .collect()
+    }
+    NavHost(navController = navController, startDestination = AppRoutes.HomeTabs.route) {
+        composable(AppRoutes.HomeTabs.route) {
             Home(hiltViewModel()) {
                 val testParam = NewsDetailsData(
                     it.title,
@@ -50,10 +60,20 @@ fun AppActivityUi() {
                 continueReadingClicked = {
                     // todo:
                 },
-                onBackPressed = {
-                    navController.popBackStack()
-                }
+                onBackPressed = { appViewModel.navigateBack() }
             )
+        }
+    }
+}
+
+fun navigate(navController: NavHostController, route: AppRoutes) {
+    when (route) {
+        is AppRoutes.Back -> navController.popBackStack()
+        is AppRoutes.HomeTabs -> {
+            // todo:
+        }
+        is AppRoutes.NewsDetails -> {
+            // todo:
         }
     }
 }
