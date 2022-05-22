@@ -20,11 +20,11 @@ import coil.compose.rememberImagePainter
 import ny.times.reader.base.presentation.ui.widget.CollapsingToolbarScaffold
 import ny.times.reader.base.theme.TimesReaderTheme
 import ny.times.reader.news_details.R
-import ny.times.reader.news_details.presentation.argument.NewsDetailsData
+import ny.times.reader.news_details.presentation.entity.NewsDetailsUiEntity
 
 @Composable
 fun NewsDetailsUi(
-    details: NewsDetailsData,
+    details: NewsDetailsUiEntity,
     continueReadingClicked: (url: String) -> Unit,
     onBackPressed: () -> Unit
 ) {

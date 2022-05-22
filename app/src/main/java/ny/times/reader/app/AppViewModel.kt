@@ -1,6 +1,7 @@
 package ny.times.reader.app
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.view_model.BaseViewAction
 import ny.times.reader.base.presentation.view_model.BaseViewModel
 import ny.times.reader.base.presentation.view_model.BaseViewState
@@ -17,6 +18,16 @@ class AppViewModel @Inject constructor(
     AppNavigation by appNavigation {
 
     override fun onReduceState(viewAction: BaseViewAction): HomeViewState = state
+
+    fun onNewsDetailsClicked(news: News) = appNavigation.navigateToNewsDetails(
+        headline = news.title,
+        abstract = news.snippet,
+        leadParagraph = news.leadParagraph,
+        image = news.imageUrl,
+        sourceName = news.source,
+        sourceUrl = news.url,
+        tags = news.keywords.toTypedArray()
+    )
 
     object HomeViewState : BaseViewState
 }

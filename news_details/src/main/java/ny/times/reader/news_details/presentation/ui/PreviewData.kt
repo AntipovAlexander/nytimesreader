@@ -1,9 +1,9 @@
 package ny.times.reader.news_details.presentation.ui
 
-import ny.times.reader.news_details.presentation.argument.NewsDetailsData
+import ny.times.reader.news_details.presentation.entity.NewsDetailsUiEntity
 
 internal object PreviewData {
-    fun get() = NewsDetailsData(
+    fun get() = NewsDetailsUiEntity(
         headline = "Test headline",
         abstract = "Test abstract",
         leadParagraph = "Lead paragraph",
