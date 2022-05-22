@@ -32,8 +32,9 @@ fun AppActivityUi(appViewModel: AppViewModel) {
             .onEach { route -> navigate(navController, route) }
             .collect()
     }
-    NavHost(navController = navController, startDestination = AppRoutes.HomeTabs.route) {
-        composable(AppRoutes.HomeTabs.route) {
+    // todo:!
+    NavHost(navController = navController, startDestination = "AppRoutes.HomeTabs.route") {
+        composable("AppRoutes.HomeTabs.route") {
             Home(hiltViewModel()) {
                 val testParam = NewsDetailsData(
                     it.title,
@@ -68,13 +69,13 @@ fun AppActivityUi(appViewModel: AppViewModel) {
 
 fun navigate(navController: NavHostController, route: AppRoutes) {
     when (route) {
-        is AppRoutes.Back -> navController.popBackStack()
-        is AppRoutes.HomeTabs -> {
-            // todo:
-        }
-        is AppRoutes.NewsDetails -> {
-            // todo:
-        }
+//        is AppRoutes.Back -> navController.popBackStack()
+//        is AppRoutes.HomeTabs -> {
+//            // todo:
+//        }
+//        is AppRoutes.NewsDetails -> {
+//            // todo:
+//        }
     }
 }
 

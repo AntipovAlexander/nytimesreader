@@ -56,7 +56,7 @@ fun Home(
 }
 
 private fun navigate(navController: NavController, homeTabsRoute: HomeTabsRoutes) {
-    navController.navigate(homeTabsRoute.route) {
+    navController.navigate(homeTabsRoute.destination) {
         // Pop up to the start destination of the graph to
         // avoid building up a large stack of destinations
         // on the back stack as users select items

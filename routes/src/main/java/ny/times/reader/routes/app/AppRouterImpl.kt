@@ -9,5 +9,5 @@ import javax.inject.Inject
 
 class AppRouterImpl @Inject constructor(navigationManager: NavigationManager) :
     AppRouter {
-    override val appRoutes: Flow<AppRoutes> = navigationManager.commands.filterIsInstance()
+    override val appRoutes: Flow<AppRoutes> = navigationManager.destinations.filterIsInstance()
 }

@@ -61,6 +61,8 @@ fun NavigationGraph(
         }
     ) {
         composable(HomeTabsRoutes.Feed.route) {
+
+
             FeedUi(
                 newsClicked = newsClicked,
                 feedVm = hiltViewModel()

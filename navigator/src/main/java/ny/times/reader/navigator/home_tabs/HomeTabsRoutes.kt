@@ -1,23 +1,39 @@
 package ny.times.reader.navigator.home_tabs
 
 import androidx.navigation.NamedNavArgument
-import ny.times.reader.navigator.base.NavigationCommand
+import ny.times.reader.navigator.base.Destination
+import ny.times.reader.navigator.base.RouteParams
 
-sealed class HomeTabsRoutes : NavigationCommand() {
+sealed class HomeTabsRoutes : Destination() {
 
-    object Feed : HomeTabsRoutes() {
-        override val arguments = emptyList<NamedNavArgument>()
-        override val route = "feed_route"
+    class Feed : HomeTabsRoutes() {
+
+        companion object : RouteParams() {
+            override val arguments = emptyList<NamedNavArgument>()
+            override val route = "feed_route"
+        }
+
+        override val destination: String = route
     }
 
-    object Search : HomeTabsRoutes() {
-        override val arguments = emptyList<NamedNavArgument>()
-        override val route = "search_route"
+    class Search : HomeTabsRoutes() {
+
+        companion object : RouteParams() {
+            override val arguments = emptyList<NamedNavArgument>()
+            override val route = "search_route"
+        }
+
+        override val destination: String = route
     }
 
-    object Bookmarks : HomeTabsRoutes() {
-        override val arguments = emptyList<NamedNavArgument>()
-        override val route = "bookmarks_route"
+    class Bookmarks : HomeTabsRoutes() {
+
+        companion object : RouteParams() {
+            override val arguments = emptyList<NamedNavArgument>()
+            override val route = "bookmarks_route"
+        }
+
+        override val destination: String = route
     }
 
 }

@@ -9,10 +9,10 @@ class HomeTabsNavigationImpl @Inject constructor(
     private val navigationManager: NavigationManager
 ) : HomeTabsNavigation {
 
-    override fun switchToFeed() = navigationManager.navigateTo(HomeTabsRoutes.Feed)
+    override fun switchToFeed() = navigationManager.navigateTo(HomeTabsRoutes.Feed())
 
-    override fun switchToSearch() = navigationManager.navigateTo(HomeTabsRoutes.Search)
+    override fun switchToSearch() = navigationManager.navigateTo(HomeTabsRoutes.Search())
 
-    override fun switchToBookmarks() = navigationManager.navigateTo(HomeTabsRoutes.Bookmarks)
+    override fun switchToBookmarks() = navigationManager.navigateTo(HomeTabsRoutes.Bookmarks())
 
 }
