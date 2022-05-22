@@ -16,6 +16,7 @@ import com.google.accompanist.navigation.animation.composable
 import ny.times.reader.base.domain.entity.News
 import ny.times.reader.bookmarks.Bookmarks
 import ny.times.reader.feed.presentation.FeedUi
+import ny.times.reader.navigator.home_tabs.HomeTabsRoutes
 import ny.times.reader.search.presentation.ui.SearchUi
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -32,7 +33,7 @@ fun NavigationGraph(
     val animationTime = 300
     AnimatedNavHost(
         navController = navController,
-        startDestination = BottomTabs.Feed.route,
+        startDestination = HomeTabsRoutes.Feed.route,
         modifier = modifier,
         enterTransition = {
             slideInHorizontally(
@@ -59,18 +60,18 @@ fun NavigationGraph(
             )
         }
     ) {
-        composable(BottomTabs.Feed.route) {
+        composable(HomeTabsRoutes.Feed.route) {
             FeedUi(
                 newsClicked = newsClicked,
                 feedVm = hiltViewModel()
             )
         }
-        composable(BottomTabs.Search.route) {
+        composable(HomeTabsRoutes.Search.route) {
             SearchUi(
                 newsClicked = newsClicked,
                 searchVm = hiltViewModel()
             )
         }
-        composable(BottomTabs.Bookmarks.route) { Bookmarks() }
+        composable(HomeTabsRoutes.Bookmarks.route) { Bookmarks() }
     }
 }
