@@ -13,7 +13,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import ny.times.reader.base.domain.entity.News
 import ny.times.reader.bookmarks.Bookmarks
 import ny.times.reader.feed.presentation.FeedUi
 import ny.times.reader.navigator.home_tabs.HomeTabsRoutes
@@ -22,7 +21,6 @@ import ny.times.reader.search.presentation.ui.SearchUi
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavigationGraph(
-    newsClicked: (News) -> Unit,
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
@@ -61,19 +59,9 @@ fun NavigationGraph(
         }
     ) {
         composable(HomeTabsRoutes.Feed.route) {
-
-
-            FeedUi(
-                newsClicked = newsClicked,
-                feedVm = hiltViewModel()
-            )
+            FeedUi(feedVm = hiltViewModel())
         }
-        composable(HomeTabsRoutes.Search.route) {
-            SearchUi(
-                newsClicked = newsClicked,
-                searchVm = hiltViewModel()
-            )
-        }
+        composable(HomeTabsRoutes.Search.route) { SearchUi(searchVm = hiltViewModel()) }
         composable(HomeTabsRoutes.Bookmarks.route) { Bookmarks() }
     }
 }

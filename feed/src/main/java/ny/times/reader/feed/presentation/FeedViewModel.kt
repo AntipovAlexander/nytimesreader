@@ -22,12 +22,14 @@ import ny.times.reader.feed.domain.use_case.GetTopicsUseCase
 import ny.times.reader.feed.domain.use_case.ObserveNewsUseCase
 import ny.times.reader.feed.domain.use_case.RequestNewsUseCase
 import ny.times.reader.feed.presentation.data.toUiModel
+import ny.times.reader.navigator.app.AppNavigation
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
+    private val navigation: AppNavigation,
     private val getTopicsUseCase: GetTopicsUseCase,
     private val requestNewsUseCase: RequestNewsUseCase,
     private val observeNewsUseCase: ObserveNewsUseCase,
@@ -80,6 +82,19 @@ class FeedViewModel @Inject constructor(
             contentState = NewsContentState.EmptyState(viewAction.text)
         )
         else -> state
+    }
+
+    fun onNewsDetailsClicked(id: String) {
+        val news = state.contentState.newsDomain()?.firstOrNull { it.id == id } ?: return
+        navigation.navigateToNewsDetails(
+            headline = news.title,
+            abstract = news.snippet,
+            leadParagraph = news.leadParagraph,
+            image = news.imageUrl.ifEmpty { news.thumbUrl },
+            sourceName = news.source,
+            sourceUrl = news.url,
+            tags = news.keywords.toTypedArray()
+        )
     }
 
     private fun loadTopics() = viewModelScope.launch {
@@ -139,5 +154,4 @@ class FeedViewModel @Inject constructor(
 
     fun retryClicked() = requestNewsFromStart(state.chips.first { it.isSelected }.text)
 
-    fun getById(id: String) = state.contentState.newsDomain()?.firstOrNull { it.id == id }
 }

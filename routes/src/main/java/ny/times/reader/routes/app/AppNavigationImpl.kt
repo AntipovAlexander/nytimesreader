@@ -2,6 +2,7 @@ package ny.times.reader.routes.app
 
 import ny.times.reader.navigator.app.AppNavigation
 import ny.times.reader.navigator.app.AppRoutes
+import ny.times.reader.navigator.base.NavigationCommand
 import ny.times.reader.routes.base.NavigationManager
 import javax.inject.Inject
 
@@ -23,14 +24,12 @@ class AppNavigationImpl @Inject constructor(
             leadParagraph = leadParagraph,
             image = image,
             sourceName = sourceName,
-            sourceUrl = sourceUrl,
-            tags = tags
+            sourceUrl = sourceUrl
         )
-        navigationManager.navigateTo(destination)
+        navigationManager.apply(NavigationCommand.Forward(destination))
     }
 
     override fun navigateBack() {
-        // todo
-//        navigationManager.navigateTo(AppRoutes.Back)
+        navigationManager.apply(NavigationCommand.Back(null))
     }
 }

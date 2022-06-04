@@ -11,18 +11,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeTabsViewModel @Inject constructor(
-    private val homeTabsNavigation: HomeTabsNavigation,
-    private val homeTabsRouter: HomeTabsRouter
-) : BaseViewModel<HomeTabsViewModel.HomeViewState>(HomeViewState),
-    HomeTabsRouter by homeTabsRouter {
+    val router: HomeTabsRouter,
+    private val navigator: HomeTabsNavigation
+) : BaseViewModel<HomeTabsViewModel.HomeViewState>(HomeViewState) {
 
     override fun onReduceState(viewAction: BaseViewAction): HomeViewState = state
 
     fun onTabSwitched(tab: BottomTabs) {
         when (tab) {
-            BottomTabs.Feed -> homeTabsNavigation.switchToFeed()
-            BottomTabs.Search -> homeTabsNavigation.switchToSearch()
-            BottomTabs.Bookmarks -> homeTabsNavigation.switchToBookmarks()
+            BottomTabs.Feed -> navigator.switchToFeed()
+            BottomTabs.Search -> navigator.switchToSearch()
+            BottomTabs.Bookmarks -> navigator.switchToBookmarks()
         }
     }
 

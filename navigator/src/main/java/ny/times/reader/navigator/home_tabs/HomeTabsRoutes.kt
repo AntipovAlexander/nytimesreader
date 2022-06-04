@@ -4,7 +4,7 @@ import androidx.navigation.NamedNavArgument
 import ny.times.reader.navigator.base.Destination
 import ny.times.reader.navigator.base.RouteParams
 
-sealed class HomeTabsRoutes : Destination() {
+sealed class HomeTabsRoutes : Destination {
 
     class Feed : HomeTabsRoutes() {
 
@@ -13,7 +13,7 @@ sealed class HomeTabsRoutes : Destination() {
             override val route = "feed_route"
         }
 
-        override val destination: String = route
+        override val route: String = Companion.route
     }
 
     class Search : HomeTabsRoutes() {
@@ -23,7 +23,7 @@ sealed class HomeTabsRoutes : Destination() {
             override val route = "search_route"
         }
 
-        override val destination: String = route
+        override val route: String = Companion.route
     }
 
     class Bookmarks : HomeTabsRoutes() {
@@ -33,7 +33,7 @@ sealed class HomeTabsRoutes : Destination() {
             override val route = "bookmarks_route"
         }
 
-        override val destination: String = route
+        override val route: String = Companion.route
     }
 
 }

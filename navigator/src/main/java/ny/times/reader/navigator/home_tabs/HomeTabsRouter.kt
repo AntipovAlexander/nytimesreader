@@ -1,7 +1,5 @@
 package ny.times.reader.navigator.home_tabs
 
-import kotlinx.coroutines.flow.Flow
+import ny.times.reader.navigator.base.BaseRouter
 
-interface HomeTabsRouter {
-    val tabsRoutes: Flow<HomeTabsRoutes>
-}
+interface HomeTabsRouter : BaseRouter

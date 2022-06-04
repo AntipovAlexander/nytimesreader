@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ny.times.reader.base.domain.entity.News
 import ny.times.reader.base.presentation.ui.news.NewsContent
 import ny.times.reader.base.presentation.ui.widget.ChipContent
 import ny.times.reader.base.presentation.ui.widget.ChipGroup
@@ -18,16 +17,13 @@ import ny.times.reader.feed.R
 import ny.times.reader.feed.presentation.ui.PreviewData
 
 @Composable
-fun FeedUi(
-    newsClicked: (News) -> Unit,
-    feedVm: FeedViewModel
-) {
+fun FeedUi(feedVm: FeedViewModel) {
     Feed(
         feedState = feedVm.state,
         onChipSelected = feedVm::chipSelected,
         onRetryClick = feedVm::retryClicked,
         onLastVisibleItemChanged = feedVm::lastVisibleItemChanged,
-        onItemClick = { id -> newsClicked(feedVm.getById(id) ?: return@Feed) }
+        onItemClick = feedVm::onNewsDetailsClicked
     )
 }
 
